@@ -5,15 +5,22 @@ import 'city.dart';
 
 class BeginScreen extends StatelessWidget {
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
+      drawer: new Drawer(),
       appBar: new AppBar(
         title: new Text("TREASURE", style: new TextStyle(
-        fontSize: 24.0,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.bold)
-      ),
+          fontSize: 24.0,
+          fontStyle: FontStyle.normal,
+          fontWeight: FontWeight.bold)
+
+        ),
+        leading: new IconButton(icon: new Icon(Icons.menu),
+            onPressed: () => _scaffoldKey.currentState.openDrawer()),
       ),
       body: new Container(
         padding: new EdgeInsets.all(20.0),

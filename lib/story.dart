@@ -37,6 +37,7 @@ class StoryScreen extends StatelessWidget {
                   //leading: const Icon(Icons.person), //The icon prior the field.
                   title: new TextField(
                     decoration: new InputDecoration(
+                      contentPadding: EdgeInsets.zero,
                       border: InputBorder.none,
                       hintText: "What do you think of your city?", //It appears on textfield as help.
                     ),
@@ -49,7 +50,7 @@ class StoryScreen extends StatelessWidget {
                 ),
                 margin: new EdgeInsets.only(top: 0.0, bottom: 40.0),
               ),
-
+/*
               new RaisedButton(
                 onPressed: () {
                   //Navigator.pop(context);
@@ -61,6 +62,7 @@ class StoryScreen extends StatelessWidget {
                 },
                 child: new Text('Continue'),
               ),
+              */
             ]),
 
       ),
