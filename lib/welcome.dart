@@ -27,12 +27,17 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 margin: new EdgeInsets.only(top: 40.0, bottom: 40.0),
               ),
+      new Container(
+        //width: screenSize.width,
+          child:
               new Image.asset(
                 'images/no-image.jpg',
                 width: 600.0,
                 height: 180.0,
                 fit: BoxFit.cover,
               ),
+        margin: new EdgeInsets.only(top: 0.0, bottom: 0.0),
+      ),
               new Container(
                 //width: screenSize.width,
                 child: new Text(
@@ -79,7 +84,7 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    new MaterialPageRoute(builder: (context) => new SecondScreen()),
+                    new MaterialPageRoute(builder: (context) => new BeginScreen()),
                   );
                 },
               ),

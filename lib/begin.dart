@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'registry.dart';
+import 'city.dart';
 
-class SecondScreen extends StatelessWidget {
+class BeginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -122,11 +123,9 @@ class SecondScreen extends StatelessWidget {
 
               new RaisedButton(
                 onPressed: () {
-                  //Navigator.pop(context);
                   Navigator.push(
                     context,
-                    new MaterialPageRoute(
-                        builder: (context) => new MyHomePage(title: 'New contact')),
+                    new MaterialPageRoute(builder: (context) => new CityScreen()),
                   );
                 },
                 child: new Text('Continue'),
