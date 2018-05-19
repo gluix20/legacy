@@ -30,38 +30,28 @@ class CityScreen extends StatelessWidget {
               new TextCont('Legends were born in New York City, we bet it was a really interesting place to be born.',
                   20.0, 0.0, 40.0),
 
-              new Container(
+              new GestureDetector(
+        onTap: () {
+          Navigator.push(context, new MaterialPageRoute(builder: (context) => new StoryScreen(title: 'adsf')),
+          );
+        },
+              child: new Container(
                 child: new ListTile(
                   //leading: const Icon(Icons.person), //The icon prior the field.
+
                   title: new TextField(
                     decoration: new InputDecoration(
                       hintText: "What do you think of your city?", //It appears on textfield as help.
                     ),
-
+enabled: false,
                   ),
-                  onTap: () {
-                    //Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new MyHomePage(title: 'New contact')),
-                    );
-                  },
 
                 ),
                 margin: new EdgeInsets.only(top: 0.0, bottom: 40.0),
 
               ),
-
-              new RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    new MaterialPageRoute(builder: (context) => new StoryScreen()),
-                  );
-                },
-                child: new Text('Continue'),
               ),
+
             ]),
 
       ),
