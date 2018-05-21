@@ -138,14 +138,15 @@ class _LoginPageState extends State<LoginPage> {
 
                 new Container(
                   width: screenSize.width,
-                  child: new RaisedButton(
+                  child: new OutlineButton(
                     //disabledColor: Colors.transparent,
                     child: new Text(
                       'Continue with Facebook',
-                      style: new TextStyle(color: Colors.white),
+                      //style: new TextStyle(color: Colors.white),
                     ),
-                    onPressed: null,
-                    color: Colors.blue,
+                    onPressed: this.submit,
+                    //color: Colors.blue,
+                    borderSide: new BorderSide(width: 3.0),
 
 
                   ),
@@ -165,6 +166,13 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+const List<String> coolColorNames = const <String>[
+  'Sarcoline', 'Coquelicot', 'Smaragdine', 'Mikado', 'Glaucous', 'Wenge',
+  'Fulvous', 'Xanadu', 'Falu', 'Eburnean', 'Amaranth', 'Australien',
+  'Banan', 'Falu', 'Gingerline', 'Incarnadine', 'Labrador', 'Nattier',
+  'Pervenche', 'Sinoper', 'Verditer', 'Watchet', 'Zaffre',
+];
 
 
 

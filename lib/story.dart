@@ -17,9 +17,6 @@ class StoryScreen extends StatefulWidget {
 class _StoryScreenState extends State<StoryScreen> {
   final FocusNode n = new FocusNode();//Le tuve que poner final porque es stateless.
 
-
-
-
   @override
   initState()  {
       super.initState();
