@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'translations.dart';
+
 
 class TextCont extends Container {
 
@@ -18,6 +20,53 @@ class TextCont extends Container {
       ),
       margin: new EdgeInsets.only(top: top, bottom: bottom),
     );
+
+}
+
+class TextContainer extends StatelessWidget {
+
+  final String text;
+  final String keyText;
+  final double fontSize;
+  final double top;
+  final double bottom;
+  final TextAlign align;
+  final FontWeight fontW;
+  final Color color;
+
+  TextContainer(this.keyText, this.fontSize, this.top, this.bottom,
+      [this.align, this.fontW, this.color]):
+        super();
+
+  TextContainer.c(this.text, this.fontSize, this.top, this.bottom,
+      [this.align, this.fontW, this.color]):
+        super();
+
+  TextContainer.t(this.keyText):
+        super();
+
+  String getS(BuildContext context){
+    return keyText == null? text : Translations.of(context).text(keyText);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new Container(
+      child: new Text(getS(context),
+      //child: new Text(getS(context),
+        textAlign: align == null? TextAlign.center : align,
+        style: new TextStyle(
+            fontSize: fontSize,
+            fontFamily: 'Montserrat',
+            fontWeight: fontW == null? FontWeight.normal : fontW,
+            color: color == null? Colors.black : color,
+        ),
+
+      ),
+      margin: new EdgeInsets.only(top: top, bottom: bottom),
+    );
+  }
 
 }
 

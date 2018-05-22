@@ -40,13 +40,11 @@ class _BeginScreenState extends State<BeginScreen> {
       body: new Container(
         padding: new EdgeInsets.all(20.0),
         child: new ListView(
-            //padding: const EdgeInsets.all(16.0),
             children: <Widget>[
 
-              new TextCont('The beginning', 36.0, 30.0, 30.0),
-              new TextCont('They say wisdom comes with the years.', 20.0, 0.0, 40.0),
-              new TextCont('Let\'s start by knowing when and where you were born?',
-                  20.0, 0.0, 40.0),
+              new TextContainer('beginning_lbl1', 36.0, 30.0, 30.0),
+              new TextContainer('wisdom_lbl1', 20.0, 0.0, 40.0),
+              new TextContainer('born_lbl1',20.0, 0.0, 40.0),
 
               new Container(
                 child: new ListTile(
@@ -65,9 +63,7 @@ class _BeginScreenState extends State<BeginScreen> {
                 margin: new EdgeInsets.only(top: 0.0, bottom: 40.0),
               ),
 
-
-
-              new TextCont('I was born in', 20.0, 0.0, 20.0, TextAlign.left, FontWeight.w700),
+              new TextContainer('was_born_lbl1', 20.0, 0.0, 20.0, TextAlign.left, FontWeight.w700),
 
               new Container(
               child: new ListTile(
@@ -82,14 +78,10 @@ class _BeginScreenState extends State<BeginScreen> {
                           color: Theme.of(context).brightness == Brightness.light ? Colors.grey.shade700 : Colors.white70
                       ),
                       contentPadding: new EdgeInsets.all(0.0),
-   //labelStyle: new TextStyle(inherit: false, fontSize: 14.0, textBaseline: TextBaseline.alphabetic),
 
                     ),
-//baseStyle: new TextStyle(inherit: false, fontSize: 14.0, textBaseline: TextBaseline.alphabetic),
                   isEmpty: _country == null,
-
                   child: new DropdownButton<String>(
-//style: new TextStyle(inherit: false, fontSize: 14.0, textBaseline: TextBaseline.alphabetic),
                       value: _country,
                       isDense: true,
                       iconSize: 0.0,
@@ -164,7 +156,7 @@ class _BeginScreenState extends State<BeginScreen> {
                     new MaterialPageRoute(builder: (context) => new CityScreen()),
                   );
                 },
-                child: new Text('Continue'),
+                child: new TextContainer('continue_lbl1',14.0,0.0,0.0),
               ),
               ]),
 

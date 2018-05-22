@@ -5,9 +5,7 @@ import 'dart:async';
 
 
 class StoryScreen extends StatefulWidget {
-  StoryScreen({Key key, this.title}) : super(key: key);
-
-  final String title;
+  StoryScreen({Key key}) : super(key: key);
 
   @override
   _StoryScreenState createState() => new _StoryScreenState();
@@ -39,7 +37,7 @@ class _StoryScreenState extends State<StoryScreen> {
 
     return new Scaffold(
 
-      appBar: new AppBarX.withTitle("Create Story"),
+      appBar: new AppBarX.withTitle('Create Story'),
 
       body: new Container(
 
@@ -61,7 +59,7 @@ class _StoryScreenState extends State<StoryScreen> {
 
                       contentPadding: EdgeInsets.zero,
                       border: InputBorder.none,
-                      hintText: "What do you think of your city?", //It appears on textfield as help.
+                      hintText: 'What do you think of your city?', //It appears on textfield as help.
                     ),
                     style: new TextStyle(
                       fontSize: 20.0,

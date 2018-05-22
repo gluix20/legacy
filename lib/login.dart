@@ -7,6 +7,7 @@ import 'welcome.dart';
 import 'translations.dart';
 import 'ball.dart';
 import 'application.dart';
+import 'weed.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -60,7 +61,6 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState(){
     //applic.onLocaleChanged(new Locale('en',''));
-
     super.initState();
 
     _localeOverrideDelegate = new SpecificLocalizationDelegate(null);
@@ -95,6 +95,7 @@ class LoginPageState extends State<LoginPage> {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: applic.supportedLocales(),
+      //debugShowCheckedModeBanner: false,
 
       home: new Builder(
           builder: (BuildContext context) {
@@ -111,26 +112,14 @@ class LoginPageState extends State<LoginPage> {
             }
 
             return new Scaffold(
-
                 body: new Container(
                     padding: new EdgeInsets.all(20.0),
                     child: new Form(
                       key: this._formKey,
                       child: new ListView(
                         children: <Widget>[
-                          new Container(
-                            width: screenSize.width,
-                            child: new Text( Translations.of(context).text('main_title1'),
-                              //getS('main_title1'),
-                              //Translations.of(context).locale.languageCode,
-                              textAlign: TextAlign.center,
-                              style: new TextStyle(
-                                  fontSize: 36.0,
-                                  //fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            margin: new EdgeInsets.only(top: 60.0, bottom: 60.0),
-                          ),
+                          new TextContainer('main_title1', 36.0, 60.0, 60.0, TextAlign.center, FontWeight.w700),
+                          //Translations.of(context).locale.languageCode,
 
                           new TextFormField(
                               keyboardType: TextInputType
@@ -162,40 +151,36 @@ class LoginPageState extends State<LoginPage> {
                               bottom: 30.0,
                             ),
                           ),
-                          new Text(getS('accept_terms1'),
-                            textAlign: TextAlign.center, ),
+
+                          new TextContainer('accept_terms1', 14.0, 0.0, 0.0, TextAlign.center),
 
                           new Container(
                             width: screenSize.width,
                             child: new RaisedButton(
-                              child: new Text(getS('signin_bttn1'),
-                                style: new TextStyle(color: Colors.white),
-                              ),
+                              child: new TextContainer('signin_bttn1', 14.0, 0.0, 0.0, TextAlign.center, null, Colors.white),
                               onPressed: () {
                                 this.validate();
                                 Navigator.push(context,
-                                  new MaterialPageRoute(builder: (context) => new WelcomeScreen()),
+                                  new MaterialPageRoute(builder: (context) => new WelcomePage()),
                                 );
                               },
                               color: Colors.blue,
                             ),
                             margin: new EdgeInsets.only(top: 20.0, bottom: 20.0),
                           ),
-                          new Text(getS('or_lbl1'), textAlign: TextAlign.center),
 
+                          new TextContainer('or_lbl1', 14.0, 0.0, 0.0, TextAlign.center),
 
                           new Container(
                             width: screenSize.width,
                             child: new OutlineButton(
-                              child: new Text(
-                                getS('fb_bttn1'),
-                              ),
+                              child: new TextContainer('fb_bttn1', 14.0, 0.0, 0.0, TextAlign.center),
                               onPressed: () {
                                 Navigator.push(context,
                                   new MaterialPageRoute(builder: (context) => new BallPage()),
-                                );},
+                                );
+                                },
                               borderSide: new BorderSide(width: 3.0),
-
 
                             ),
                             margin: new EdgeInsets.only(
@@ -204,10 +189,9 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
 
-                          new Divider(height: 16.0, ),
+                          new Divider(height: 16.0),
+                          new TextContainer('signup_bttn1', 14.0, 0.0, 0.0, TextAlign.center),
 
-                          new Text(getS('signup_bttn1'),
-                              textAlign: TextAlign.center),
                         ],
                       ),
                     )

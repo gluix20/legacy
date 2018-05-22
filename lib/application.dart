@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-
 typedef void LocaleChangeCallback(Locale locale);
+
 class APPLIC {
   // List of supported languages
   final List<String> supportedLanguages = ['en','es'];
@@ -23,6 +22,7 @@ class APPLIC {
   }
 
   APPLIC._internal();
+
 }
 
 APPLIC applic = new APPLIC();
