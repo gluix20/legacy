@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:validate/validate.dart';
 
-import 'welcome.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() => runApp(new MaterialApp(
+
+import 'welcome.dart';
+import 'translations.dart';
+
+void main() => runApp(
+
+    new MaterialApp(
       theme: new ThemeData(fontFamily: 'Montserrat'),
       title: 'Treasure',
+  //onGenerateTitle: (BuildContext context) => DemoLocalizations.of(context).title,
       home: new LoginPage(),
+
+  localizationsDelegates: [
+    // ... app-specific localization delegate[s] here
+    const TranslationsDelegate(),
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ],
+  supportedLocales: [
+    const Locale('en', ''), // English
+    const Locale('es', ''), // Hebrew
+    //const Locale('es', 'GT'), // English
+    //const Locale('es', ''), // Hebrew
+    // ... other locales the app supports
+  ],
+
     ));
 
 class LoginPage extends StatefulWidget {
@@ -30,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       Validate.isEmail(value);
     } catch (e) {
-      return 'The E-mail Address must be a valid email address.';
+      return getS('email_validation1');
     }
 
     return null;
@@ -38,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
 
   String _validatePassword(String value) {
     if (value.length < 8) {
-      return 'The Password must be at least 8 characters.';
+      return getS('password_validation1');
     }
 
     return null;
@@ -60,7 +83,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
+  String getS(String s){
+    return Translations.of(context).text(s);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +105,13 @@ class _LoginPageState extends State<LoginPage> {
                 new Container(
                   width: screenSize.width,
                   child: new Text(
-                    'TREASURE',
+
+                    //DemoLocalizations.of(context).title,
+                    //'TREASURE',
+                    getS('main_title1'),
+                    //Translations.of(context).locale.languageCode,
+
+
                     textAlign: TextAlign.center,
                     style: new TextStyle(
                         fontSize: 36.0,
@@ -94,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                     keyboardType: TextInputType
                         .emailAddress, // Use email input type for emails.
                     decoration: new InputDecoration(
-                        hintText: 'you@example.com', labelText: 'Email', isDense: true),
+                        hintText: getS('email_example1'), labelText: 'Email', isDense: true),
                     validator: this._validateEmail,
                     onSaved: (String value) {
                       this._data.email = value;
@@ -117,15 +148,13 @@ class _LoginPageState extends State<LoginPage> {
                 bottom: 30.0,
               ),
             ),
-                new Text(
-                    'By continuing signing in you accept our Terms and conditions',
+                new Text(getS('accept_terms1'),
                     textAlign: TextAlign.center, ),
 
                 new Container(
                   width: screenSize.width,
                   child: new RaisedButton(
-                    child: new Text(
-                      'Sign in',
+                    child: new Text(getS('sign_in_button'),
                       style: new TextStyle(color: Colors.white),
                     ),
                     onPressed: this.submit,
@@ -133,15 +162,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   margin: new EdgeInsets.only(top: 20.0, bottom: 20.0),
                 ),
-                new Text('Or', textAlign: TextAlign.center),
+                new Text(getS('or_label'), textAlign: TextAlign.center),
 
 
                 new Container(
                   width: screenSize.width,
                   child: new OutlineButton(
-                    //disabledColor: Colors.transparent,
                     child: new Text(
-                      'Continue with Facebook',
+                      getS('fb_button'),
                       //style: new TextStyle(color: Colors.white),
                     ),
                     onPressed: this.submit,
@@ -158,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 new Divider(height: 16.0, ),
 
-                new Text('Not registered yet? Sign Up',
+                new Text(getS('not_reg_yet'),
                     textAlign: TextAlign.center),
               ],
             ),
@@ -166,13 +194,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-const List<String> coolColorNames = const <String>[
-  'Sarcoline', 'Coquelicot', 'Smaragdine', 'Mikado', 'Glaucous', 'Wenge',
-  'Fulvous', 'Xanadu', 'Falu', 'Eburnean', 'Amaranth', 'Australien',
-  'Banan', 'Falu', 'Gingerline', 'Incarnadine', 'Labrador', 'Nattier',
-  'Pervenche', 'Sinoper', 'Verditer', 'Watchet', 'Zaffre',
-];
 
 
 

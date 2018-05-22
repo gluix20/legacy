@@ -1,0 +1,12 @@
+{
+  "app_title1": "Treasure",
+  "main_title1": "TREASURE",
+  "email_validation1": "The E-mail Address must be a valid email address.",
+  "password_validation1": "The Password must be at least 8 characters.",
+  "email_example1": "you@example.com",
+  "accept_terms1": "By continuing signing in you accept our Terms and conditions",
+  "sign_in_button": "Sign in",
+  "or_label": "Or",
+  "fb_button": "Continue with Facebook",
+  "not_reg_yet": "Not registered yet? Sign Up"
+}

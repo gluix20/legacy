@@ -7,6 +7,7 @@ import 'weed.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 
+
 class BeginScreen extends StatefulWidget {
   BeginScreen({Key key}) : super(key: key);
 
@@ -19,10 +20,10 @@ class _BeginScreenState extends State<BeginScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final List<String> _allCountries = <String>['United States', 'England', 'Australia', 'Guatemala'];
   String _country ;
+
+  //DateTime _fromDate = new DateTime.utc(1900,1,1);
   DateTime _fromDate = new DateTime.now();
-  TimeOfDay _fromTime = const TimeOfDay(hour: 7, minute: 28);
-  DateTime _toDate = new DateTime.now();
-  TimeOfDay _toTime = const TimeOfDay(hour: 7, minute: 28);
+
 
   @override
   initState()  {
@@ -53,7 +54,6 @@ class _BeginScreenState extends State<BeginScreen> {
                   title: new _DateTimePicker(
                     labelText: 'Date of birth',
                     selectedDate: _fromDate,
-                    selectedTime: _fromTime,
                     selectDate: (DateTime date) {
                       setState(() {
                         _fromDate = date;
@@ -180,16 +180,12 @@ class _DateTimePicker extends StatelessWidget {
     Key key,
     this.labelText,
     this.selectedDate,
-    this.selectedTime,
     this.selectDate,
-    this.selectTime
   }) : super(key: key);
 
   final String labelText;
   final DateTime selectedDate;
-  final TimeOfDay selectedTime;
   final ValueChanged<DateTime> selectDate;
-  final ValueChanged<TimeOfDay> selectTime;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
