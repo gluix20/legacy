@@ -16,8 +16,6 @@ class Bar {
 
   Bar(this.color, this.dx, this.dy);
 
-  //Method that returns a transparent object at (0.0 , 0.0) point.
-  //factory Bar.empty() => new Bar(Colors.transparent, 0.0, 0.0);
   factory Bar.empty() {
     final random = new Random();
     return new Bar(ColorPalette.primary.random(random), 0.0, 20.0);

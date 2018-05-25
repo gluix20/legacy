@@ -29,7 +29,7 @@ class BallPageState extends State<BallPage> with TickerProviderStateMixin {
 
   BarTween tween;
 
-  final Color color;
+  final Color color = Colors.black;
 
   @override
   void initState() {
@@ -122,7 +122,8 @@ class BallPageState extends State<BallPage> with TickerProviderStateMixin {
     });
   }
 
-  static BorderSide createBorderSide(BuildContext context, { Color color, double width: 3.0 }) {
+  static BorderSide createBorderSide(BuildContext context,
+      { Color color, double width: 3.0 }) {
     assert(width != null);
     return new BorderSide(
       color: color ?? Theme.of(context).dividerColor,
@@ -132,6 +133,8 @@ class BallPageState extends State<BallPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.height);
+    final double height = MediaQuery.of(context).size.height;
 
     return new Scaffold(
       appBar: new AppBar(
@@ -146,12 +149,12 @@ class BallPageState extends State<BallPage> with TickerProviderStateMixin {
             new Container(
 
               //padding: const EdgeInsets.only(top: 100.0), //Push container to the bottom
-              height: 620.0,
+              //height: 620.0,
               child: new Column(
                 children: <Widget>[
 
                   new CustomPaint(
-                    size: new Size(300.0, 617.0),
+                    size: new Size(300.0, height - 150.0),
                     painter: new BarChartPainter(tween.animate(animationC)),
                   ),
 
@@ -179,11 +182,6 @@ class BallPageState extends State<BallPage> with TickerProviderStateMixin {
             ),
 
 
-
-            //new Text('.', style: new TextStyle(color: Colors.transparent)),
-            //new Text('.', style: new TextStyle(color: Colors.transparent)),
-            //new Text('.', style: new TextStyle(color: Colors.transparent)),
-            //new Text('.', style: new TextStyle(color: Colors.transparent)),
             //new Text('dy: $dy'),
             //new Text('Bouncings: $bouncings'),
             //new Text('Y: $y'),

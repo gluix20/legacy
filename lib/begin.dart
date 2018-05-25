@@ -18,6 +18,7 @@ class BeginScreen extends StatefulWidget {
 class _BeginScreenState extends State<BeginScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   final List<String> _allCountries = <String>['United States', 'England', 'Australia', 'Guatemala'];
   String _country ;
 
@@ -153,7 +154,7 @@ class _BeginScreenState extends State<BeginScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    new MaterialPageRoute(builder: (context) => new CityScreen()),
+                    new MaterialPageRoute(builder: (context) => new CityPage(scaffoldKey: _scaffoldKey,)),
                   );
                 },
                 child: new TextContainer('continue_lbl1',14.0,0.0,0.0),
