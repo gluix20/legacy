@@ -5,6 +5,7 @@ import 'login.dart';
 import 'splash.dart';
 import 'translations.dart';
 import 'application.dart';
+import 'intro.dart';
 
 
 void main() => runApp(new MyApp());
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
       /// debugShowCheckedModeBanner: false,
       ///
       home: new LoginPage(),
+      //home: new IntroPage(),
       //new SplashPage()
     );
   }

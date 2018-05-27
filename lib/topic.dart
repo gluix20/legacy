@@ -40,46 +40,29 @@ class _TopicPageState extends State<TopicPage> {
             if (snapshot.hasData) {
               final List<ListTile> lt = new List<ListTile>();
               for(var q in snapshot.data) {
-                lt.add(new ListTile(
+                if(!q.isSkipped()) { lt.add( new ListTile(
                   title: new Text('${q.id} ${q.text}'),
+                  leading: q.isAnswered()? new Icon(Icons.check_box) : new Icon(Icons.check_box_outline_blank),
                   onTap: () {
                     Navigator.push(
                       context,
                       new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
                     );
                   },
-                )
-                );
-              }
-              return new ListView(
-                children: lt /*<Widget>[
-                  //tiles,
-                  new ListTile(
-                    title: new Text('Pregunta1: ${widget.choice.title}'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        new MaterialPageRoute(builder: (context) => new StoryPage()),
-                      );
+                  trailing: new IconButton(
+                      icon: new Icon(Icons.thumb_down),
+                    onPressed: () {
+                        print('Question ${q.id} Skipped');
                     },
                   ),
-
-                  new ListTile(title: new Text('Pregunta2: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta3: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta4: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta5: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta1: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta2: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta3: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta4: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta5: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta1: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta2: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta3: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta4: ${widget.choice.title}'),),
-                  new ListTile(title: new Text('Pregunta5: ${widget.choice.title}'),),
-
-                ],*/
+                )
+                );
+                }
+              }
+              return new ListView(
+                /// Receives a list of tiles constructed above in the future builder.
+                ///
+                children: lt
               );
               //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
 
@@ -91,7 +74,7 @@ class _TopicPageState extends State<TopicPage> {
             }
 
             // By default, show a loading spinner
-            return new CircularProgressIndicator();
+            return new Center(child: new CircularProgressIndicator());
           },
         ),
       ),

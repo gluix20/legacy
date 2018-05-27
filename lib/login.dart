@@ -6,6 +6,7 @@ import 'translations.dart';
 import 'weed.dart';
 import 'tree.dart';
 import 'weather.dart';
+import 'application.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -50,6 +51,7 @@ class LoginPageState extends State<LoginPage> {
       print('Password: ${_data.password}');
     }
     */
+    putQuestion(1);
 
   }
 
@@ -57,6 +59,7 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     //print(context.widget);
+
 
     return new Scaffold(
       key: _scaffoldKey,
