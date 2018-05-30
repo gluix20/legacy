@@ -1,9 +1,37 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+  "user": [
+    { "id": 1, "name": "Nate", "last name": "Geller" }
   ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+  "questions": [
+    { "id": 1, "text": "Tell us about your mother:", "category": "family", "age": "chilhood", 
+    "subcategory": "parents",
+    "answer": "She is very kind and full of love.", "skipped": 0 },
+    { "id": 2, "text": "How was your first school?", "category": "education", 
+    "age": "chilhood", "subcategory": "school"  },
+    { "id": 3, "text": "Who and how was your best friend?", "category": "friends",
+     "age": "chilhood", "subcategory": "best friends"  },
+    { "id": 4, "text": "Tell us about your first pet?", "category": "pets",
+     "age": "chilhood", "subcategory": "pets"  },
+    { "id": 5, "text": "Did you like dogs?", "category": "pets",
+     "age": "chilhood", "subcategory": "dogs"  },
+    { "id": 6, "text": "Tell us about your group of friends:", 
+    "category": "friends", "age": "chilhood" , "subcategory": "friends" },
+    { "id": 7, "text": "some comment", "category": "family",
+     "age": "chilhood", "subcategory": "sub1", "skipped": 1  },
+    { "id": 8, "text": "some comment", "category": "family",
+     "age": "chilhood" , "subcategory": "sub1", "skipped": 1 },
+    { "id": 9, "text": "some comment", "category": "family", "age": "chilhood", "subcategory": "sub1"  },
+    { "id": 10, "text": "some comment", "category": "family",
+     "age": "chilhood" , "subcategory": "sub1", "skipped": 1 },
+    { "id": 11, "text": "some comment", "category": "family",
+     "age": "chilhood" , "subcategory": "sub1", "skipped": 1 },
+    { "id": 12, "text": "some comment", "category": "family",
+     "age": "chilhood" , "subcategory": "sub1", "skipped": 1 },
+    { "id": 13, "text": "some comment", "category": "family",
+     "age": "chilhood" , "subcategory": "sub1", "skipped": 1 },
+    { "id": 14, "text": "Tell us about your father", "category": "family",
+     "age": "chilhood" , "subcategory": "parents" }
+
   ],
   "profile": { "name": "typicode" }
 }
