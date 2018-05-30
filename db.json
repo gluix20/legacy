@@ -47,5 +47,11 @@
     { "id": 10, "topic": "food", "skipped": 0 },
     { "id": 11, "topic": "style", "skipped": 0 },
     { "id": 12, "topic": "home", "skipped": 0 }
+  ],
+  "ages": [
+    { "id": 1, "text": "childhood", "skipped": 0 },
+    { "id": 2, "text": "adolescence", "skipped": 0 },
+    { "id": 3, "text": "young adult", "skipped": 0 },
+    { "id": 4, "text": "adulthood", "skipped": 0 }
   ]
 }
