@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="018b1d26-7b6e-4e14-8ad0-527bdb152a41" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" />
-      <change beforePath="$PROJECT_DIR$/lib/application.dart" afterPath="$PROJECT_DIR$/lib/application.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/begin.dart" afterPath="$PROJECT_DIR$/lib/begin.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/city.dart" afterPath="$PROJECT_DIR$/lib/city.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/intro.dart" afterPath="$PROJECT_DIR$/lib/intro.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/login.dart" afterPath="$PROJECT_DIR$/lib/login.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/splash.dart" afterPath="$PROJECT_DIR$/lib/splash.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/story.dart" afterPath="$PROJECT_DIR$/lib/story.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/topic.dart" afterPath="$PROJECT_DIR$/lib/topic.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/translations.dart" afterPath="$PROJECT_DIR$/lib/translations.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/tree.dart" afterPath="$PROJECT_DIR$/lib/tree.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/weed.dart" afterPath="$PROJECT_DIR$/lib/weed.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/welcome.dart" afterPath="$PROJECT_DIR$/lib/welcome.dart" />
-      <change beforePath="$PROJECT_DIR$/locale/i18n_en.json" afterPath="$PROJECT_DIR$/locale/i18n_en.json" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" afterPath="$PROJECT_DIR$/test/widget_test.dart" />
+      <change beforePath="$PROJECT_DIR$/db.json" afterPath="$PROJECT_DIR$/db.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -37,7 +20,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="322">
@@ -45,6 +28,16 @@
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="48" lean-forward="false" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -210,6 +203,7 @@
         <option value="$PROJECT_DIR$/lib/bottom.dart" />
         <option value="$PROJECT_DIR$/lib/application.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
+        <option value="$PROJECT_DIR$/db.json" />
       </list>
     </option>
   </component>
@@ -478,7 +472,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/l10n/messages_en.dart" />
     <entry file="file://$PROJECT_DIR$/lib/l10n/messages_es.dart" />
     <entry file="file://$PROJECT_DIR$/lib/l10n/messages_es_US.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -846,6 +839,14 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="48" lean-forward="false" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
