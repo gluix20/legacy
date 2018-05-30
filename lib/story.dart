@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'weed.dart';
 import 'dart:async';
+import 'translations.dart';
 
 class StoryPage extends StatefulWidget {
   final String hint;
@@ -68,7 +69,11 @@ class _StoryPageState extends State<StoryPage> {
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new TextContainer.c('Nate', 18.0, 0.0, 10.0, TextAlign.left, FontWeight.w700),
+
+              new TextContainer(T(context, t: 'Nate'),
+                fontSize: 18.0, top: 0.0, bottom: 10.0, align: TextAlign.left,
+              fontW: FontWeight.w700,),
+
               new Container(
                 child: new TextField(
                   focusNode: n,

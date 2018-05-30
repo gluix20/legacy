@@ -31,7 +31,7 @@ class _TopicPageState extends State<TopicPage> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new AppBarX.withTitle('Topic: ' + widget.choice.title),
+      appBar: new MyAppBar('Topic: ' + widget.choice.title,),
       body: new Container(
         child: new FutureBuilder<List<Question>>(
           future: fetchQuestions(widget.choice.title.toLowerCase()),

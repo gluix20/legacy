@@ -72,7 +72,7 @@ User user = new User();
 
 Future<User> fetchUser() async {
   final response =
-  await http.get('http://10.0.2.2:3000/db');
+  await http.get('https://my-json-server.typicode.com/gluix20/treasure/db');
   //await http.get('http://192.168.15.133:3000/db');
   final responseJson = json.decode(response.body);
   print(responseJson);
@@ -101,7 +101,7 @@ List<Question> questions = new List<Question>();
 Future<List<Question>> fetchQuestions(String topic) async {
   final response =
   //await http.get('http://10.0.2.2:3000/db');
-  await http.get('http://192.168.15.133:3000/db');
+  await http.get('https://my-json-server.typicode.com/gluix20/treasure/db');
   final responseJson = json.decode(response.body);
   /// This method it's called every time the TopicPage it's build
   /// but with the line below, the list of questions are reinitiallized.

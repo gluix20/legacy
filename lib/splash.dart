@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'intro.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   startTime() async {
-    var _duration = new Duration(seconds: 2);
+    var _duration = new Duration(seconds: 1);
     return new Timer(_duration, navigationPage);
   }
 
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     //Navigator.of(context).pushReplacementNamed('/HomeScreen');
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => new LoginPage()),
+      new MaterialPageRoute(builder: (context) => new IntroPage()),
     );
   }
 
@@ -32,8 +33,10 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Center(
-        child: new Icon(Icons.directions_car, size: 600.0),
-        //new Image.asset('images/flutterwithlogo.png'),
+        child: new FlutterLogo(
+          colors: Colors.blue,
+          size: 170.0,
+        ),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'registry.dart';
 import 'story.dart';
 import 'weed.dart';
 import 'application.dart';
+import 'translations.dart';
 
 class CityPage extends StatefulWidget {
   GlobalKey<ScaffoldState> scaffoldKey;
@@ -36,7 +37,7 @@ class _CityPageState extends State<CityPage> {
     APPLIC.paragraph = '';
 
     return new Scaffold(
-      appBar: new AppBarX(widget.scaffoldKey),
+      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: widget.scaffoldKey),
       body: new Container(
         padding: new EdgeInsets.all(20.0),
         child: new ListView(
@@ -48,8 +49,10 @@ class _CityPageState extends State<CityPage> {
                 margin: new EdgeInsets.only(top: 30.0, bottom: 30.0),
               ),
 
-              new TextContainer.c(city_ex, 36.0, 0.0, 30.0),
-              new TextContainer.c(city_par, 20.0, 0.0, 40.0),
+              new TextContainer(T(context, t: city_ex),
+                fontSize: 36.0, top: 0.0, bottom: 30.0,),
+              new TextContainer(T(context, t: city_par),
+                fontSize: 20.0, top: 0.0, bottom: 40.0,),
 
               new GestureDetector(
                 onTap: () {
