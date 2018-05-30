@@ -3,7 +3,7 @@
     { "id": 1, "name": "Nate", "last name": "Geller" }
   ],
   "questions": [
-    { "id": 1, "text": "Tell us about your mother:", "category": "family", "age": "chilhood", 
+    { "id": 1, "text": "Tell us about your grandmother:", "category": "family", "age": "chilhood",
     "subcategory": "parents",
     "answer": "She is very kind and full of love.", "skipped": 0 },
     { "id": 2, "text": "How was your first school?", "category": "education", 

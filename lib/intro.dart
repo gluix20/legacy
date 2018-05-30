@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'register.dart';
+import 'bottom.dart';
 
 class IntroPage extends StatelessWidget {
   final PageController pageController = new PageController();
@@ -149,15 +151,23 @@ class _CircleIndicatorState extends State<CircleIndicator> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   new OutlineButton(
+
                     child: new Text('SKIP',
                         style: new TextStyle(
                             //color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                    onPressed: () {},
+                            fontWeight: FontWeight.bold, color: Colors.blue)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new BottomNavigationDemo()),
+                      );
+                    },
                     color: Colors.white,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
+                borderSide: new BorderSide(width: 4.0, color: Colors.lightBlueAccent),
                     padding: EdgeInsets.only(
                         left: 70.0, right: 70.0, top: 20.0, bottom: 20.0),
                   ),
@@ -165,7 +175,13 @@ class _CircleIndicatorState extends State<CircleIndicator> {
                     child: new Text('NEXT',
                         style: new TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new RegisterPage()),
+                      );
+                    },
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     disabledElevation: 0.0,

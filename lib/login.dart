@@ -69,9 +69,8 @@ class LoginPageState extends State<LoginPage> {
               key: this._formKey,
               child: new ListView(
                 children: <Widget>[
-                  new TextContainer(
-                      'main_title1', 36.0, 60.0, 60.0, TextAlign.center,
-                      FontWeight.w700),
+                  new TextContainer(T(context, k: 'main_title1'),
+                      fontSize: 36.0, top: 60.0, bottom: 60.0, fontW: FontWeight.w700),
                   //Translations.of(context).locale.languageCode,
 
                   new TextFormField(
@@ -107,20 +106,15 @@ class LoginPageState extends State<LoginPage> {
                     ),
                   ),
 
-                  new TextContainer(
-                      'accept_terms1', 14.0, 0.0, 0.0, TextAlign.center),
+                  new TextContainer(T(context, k: 'accept_terms1'),
+                      fontSize: 14.0),
 
                   new Container(
                     width: screenSize.width,
                     child: new RaisedButton(
-                      child: new TextContainer(
-                          'signin_bttn1',
-                          14.0,
-                          0.0,
-                          0.0,
-                          TextAlign.center,
-                          null,
-                          Colors.white),
+                      child: new TextContainer(T(context, k: 'signin_bttn1'),
+                          fontSize: 14.0, color: Colors.white,),
+
                       onPressed: () {
                         this.validate();
                         Navigator.push(context,
@@ -133,14 +127,14 @@ class LoginPageState extends State<LoginPage> {
                     margin: new EdgeInsets.only(top: 20.0, bottom: 20.0),
                   ),
 
-                  new TextContainer(
-                      'or_lbl1', 14.0, 0.0, 0.0, TextAlign.center),
+                  new TextContainer(T(context, k: 'or_lbl1')),
+
 
                   new Container(
                     width: screenSize.width,
                     child: new OutlineButton(
-                      child: new TextContainer(
-                          'fb_bttn1', 14.0, 0.0, 0.0, TextAlign.center),
+                      child: new TextContainer(T(context, k: 'fb_bttn1')),
+
                       onPressed: () {
                         Navigator.push(context,
                           new MaterialPageRoute(
@@ -157,8 +151,9 @@ class LoginPageState extends State<LoginPage> {
                   ),
 
                   new Divider(height: 16.0),
-                  new FlatButton(child: new TextContainer(
-                      'signup_bttn1', 14.0, 0.0, 0.0, TextAlign.center),
+                  new FlatButton(child:
+                  new TextContainer(T(context, k: 'signup_bttn1')),
+
                     onPressed: () {
                       Navigator.push(context,
                         new MaterialPageRoute(

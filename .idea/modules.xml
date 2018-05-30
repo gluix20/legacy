@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/legacy.iml" filepath="$PROJECT_DIR$/legacy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/legacy_android.iml" filepath="$PROJECT_DIR$/legacy_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/treasure.iml" filepath="$PROJECT_DIR$/.idea/treasure.iml" />
     </modules>
   </component>
 </project>

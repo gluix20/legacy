@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'registry.dart';
+import 'translations.dart';
 import 'city.dart';
 import 'weed.dart';
 
@@ -18,34 +19,30 @@ class BeginScreen extends StatefulWidget {
 class _BeginScreenState extends State<BeginScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   final List<String> _allCountries = <String>['United States', 'England', 'Australia', 'Guatemala'];
   String _country ;
-
   //DateTime _fromDate = new DateTime.utc(1900,1,1);
   DateTime _fromDate = new DateTime.now();
 
-
   @override
-  initState()  {
-    super.initState();
-
-  }
+  initState() => super.initState();
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new AppBarX(_scaffoldKey),
+      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: _scaffoldKey),
       body: new Container(
         padding: new EdgeInsets.all(20.0),
         child: new ListView(
             children: <Widget>[
-
-              new TextContainer('beginning_lbl1', 36.0, 30.0, 30.0),
-              new TextContainer('wisdom_lbl1', 20.0, 0.0, 40.0),
-              new TextContainer('born_lbl1',20.0, 0.0, 40.0),
+              new TextContainer(T(context, k: 'beginning_lbl1'),
+                  fontSize: 36.0, top: 30.0, bottom: 30.0,),
+              new TextContainer(T(context, k: 'wisdom_lbl1'),
+                  fontSize: 20.0, top: 0.0, bottom: 40.0,),
+              new TextContainer(T(context, k: 'born_lbl1'),
+                  fontSize: 20.0, top: 0.0, bottom: 40.0,),
 
               new Container(
                 child: new ListTile(
@@ -64,7 +61,9 @@ class _BeginScreenState extends State<BeginScreen> {
                 margin: new EdgeInsets.only(top: 0.0, bottom: 40.0),
               ),
 
-              new TextContainer('was_born_lbl1', 20.0, 0.0, 20.0, TextAlign.left, FontWeight.w700),
+              new TextContainer(T(context, k: 'was_born_lbl1'),
+                  fontSize: 20.0, top: 0.0, bottom: 20.0, fontW: FontWeight.w700,
+              align: TextAlign.left,),
 
               new Container(
               child: new ListTile(
@@ -157,7 +156,8 @@ class _BeginScreenState extends State<BeginScreen> {
                     new MaterialPageRoute(builder: (context) => new CityPage(scaffoldKey: _scaffoldKey,)),
                   );
                 },
-                child: new TextContainer('continue_lbl1',14.0,0.0,0.0),
+                child: new TextContainer(T(context, k: 'continue_lbl1'),),
+
               ),
               ]),
 
@@ -169,6 +169,7 @@ class _BeginScreenState extends State<BeginScreen> {
 
 
 class _DateTimePicker extends StatelessWidget {
+  /// Constructor:
   const _DateTimePicker({
     Key key,
     this.labelText,
@@ -190,8 +191,6 @@ class _DateTimePicker extends StatelessWidget {
     if (picked != null && picked != selectedDate)
       selectDate(picked);
   }
-
-
   @override
   Widget build(BuildContext context) {
     final TextStyle valueStyle = Theme.of(context).textTheme.title;
@@ -235,9 +234,9 @@ class _InputDropdown extends StatelessWidget {
     return new InkWell(
       onTap: onPressed,
       child: new InputDecorator(
-        decoration: new InputDecoration(
-          labelText: labelText,
-        ),
+          decoration: new InputDecoration(
+            labelText: labelText,
+          ),
         baseStyle: valueStyle,
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

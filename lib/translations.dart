@@ -9,6 +9,7 @@ import 'application.dart';
 class Translations {
   Locale locale;
   static Map<dynamic, dynamic> _localizedValues;
+  //static BuildContext context;
 
   Translations(Locale locale) {
     this.locale = locale;
@@ -22,6 +23,7 @@ class Translations {
   String text(String key) {
     return _localizedValues[key] ?? '** $key not found';
   }
+
 
   static Future<Translations> load(Locale locale) async {
     Translations translations = new Translations(locale);
@@ -59,4 +61,8 @@ class SpecificLocalizationDelegate extends LocalizationsDelegate<Translations> {
 
   @override
   bool shouldReload(LocalizationsDelegate<Translations> old) => true;
+}
+
+String T(BuildContext context, {String t, String k}){
+    return t ?? Translations.of(context).text(k);
 }

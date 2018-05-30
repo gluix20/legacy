@@ -29,7 +29,8 @@ class WelcomePageState extends State<WelcomePage> {
         padding: new EdgeInsets.all(20.0),
         child: new ListView(
             children: <Widget>[
-              new TextContainer('main_title1', 36.0, 40.0, 40.0, null,FontWeight.w700),
+              new TextContainer(T(context, k: 'main_title1'),
+                fontSize: 36.0, top: 40.0, bottom: 40.0, fontW: FontWeight.w700,),
 
               new Container(
                   child: new Image.asset(
@@ -38,13 +39,16 @@ class WelcomePageState extends State<WelcomePage> {
                 margin: new EdgeInsets.only(top: 0.0, bottom: 0.0),
               ),
 
-              new TextContainer.c(welcome_par, 36.0, 30.0, 30.0),
-              //new TextContainer('welcome_lbl1', 36.0, 30.0, 30.0),
-              new TextContainer('story_lbl1', 20.0, 0.0, 30.0),
-              new TextContainer('protect_lbl1', 20.0, 0.0, 40.0),
+              new TextContainer(T(context, t: welcome_par),
+                fontSize: 36.0, top: 30.0, bottom: 30.0,),
+
+              new TextContainer(T(context, k: 'story_lbl1'),
+                fontSize: 20.0, top: 0.0, bottom: 30.0,),
+              new TextContainer(T(context, k: 'protect_lbl1'),
+                fontSize: 20.0, top: 0.0, bottom: 40.0,),
 
               new RaisedButton(
-                child: new TextContainer('begin_bttn1',14.0,0.0,0.0),
+                child: new TextContainer(T(context, k: 'begin_bttn1'),),
                 onPressed: () {
                   Navigator.push(
                     context,

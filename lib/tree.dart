@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'topic.dart';
 import 'weed.dart';
+import 'translations.dart';
 
 // This app is a stateful, it tracks the user's current choice.
 class TreePage extends StatefulWidget {
@@ -25,9 +26,9 @@ class _TreePageState extends State<TreePage> {
           height: 150.0,
         ));
         row = [];
-        row.add(new TopicCard(choice: c));
+        row.add(new CircleCard(choice: c));
       } else {
-        row.add(new TopicCard(choice: c));
+        row.add(new CircleCard(choice: c));
       }
       lastLevel = c.level;
     }
@@ -45,7 +46,7 @@ class _TreePageState extends State<TreePage> {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
     return new Scaffold(
-      appBar: new AppBarX(_scaffoldKey),
+      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: _scaffoldKey),
       body: new ListView(
         children: tiles,
       ),
@@ -86,8 +87,8 @@ const List<Choice> choices = const <Choice>[
       title: 'Languages', icon: Icons.translate, level: 6, hPosition: 2),
 ];
 
-class TopicCard extends StatelessWidget {
-  TopicCard({Key key, this.choice});
+class CircleCard extends StatelessWidget {
+  CircleCard({Key key, this.choice});
 
   final Choice choice;
 
@@ -96,12 +97,7 @@ class TopicCard extends StatelessWidget {
     final TextStyle textStyle = Theme.of(context).textTheme.display1;
     //print(MediaQuery.of(context).size.width);
 
-    return new PhysicalModel(
-        borderRadius: new BorderRadius.circular(50.0),
-        /// If white color is selected it shows a shadow including the text.
-        ///
-        color: Colors.transparent,
-        child: new GestureDetector(
+    return new GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
@@ -133,7 +129,7 @@ class TopicCard extends StatelessWidget {
                 new Text(choice.title),
               ],
             )
-        )
+
     );
   }
 }

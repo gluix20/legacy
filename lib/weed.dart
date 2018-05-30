@@ -3,30 +3,9 @@ import 'package:flutter/material.dart';
 import 'translations.dart';
 
 
-class TextCont extends Container {
-
-  TextCont(String text, double fontSize, double top, double bottom,
-      [TextAlign align, FontWeight fontW]) :
-
-    super(
-      //width: screenSize.width,
-      child: new Text(text,
-        textAlign: align == null? TextAlign.center : align,
-        style: new TextStyle(
-          fontSize: fontSize,
-          fontFamily: 'Montserrat',
-          fontWeight: fontW == null? FontWeight.normal : fontW,
-        ),
-      ),
-      margin: new EdgeInsets.only(top: top, bottom: bottom),
-    );
-
-}
-
 class TextContainer extends StatelessWidget {
 
   final String text;
-  final String keyText;
   final double fontSize;
   final double top;
   final double bottom;
@@ -34,133 +13,173 @@ class TextContainer extends StatelessWidget {
   final FontWeight fontW;
   final Color color;
 
-  TextContainer(this.keyText, this.fontSize, this.top, this.bottom,
-      [this.align, this.fontW, this.color]):
-        super();
-
-  TextContainer.c(this.text, this.fontSize, this.top, this.bottom,
-      [this.align, this.fontW, this.color]):
-        super();
-
-  TextContainer.t(this.keyText):
-        super();
-
-  String getS(BuildContext context){
-    return keyText == null? text : Translations.of(context).text(keyText);
-  }
+  TextContainer(this.text, {this.fontSize, this.top, this.bottom,
+      this.align, this.fontW, this.color}) : super();
 
   @override
   Widget build(BuildContext context) {
     return new Container(
-      margin: new EdgeInsets.only(top: top, bottom: bottom),
-      child: new Text(getS(context),
-        textAlign: align == null? TextAlign.center : align,
+      margin: new EdgeInsets.only(top: top ?? 0.0, bottom: bottom ?? 0.0),
+      child: new Text(
+        text,
+        textAlign: align ?? TextAlign.center,
         style: new TextStyle(
-            fontSize: fontSize == null? 14.0 : fontSize,
+            fontSize: fontSize ?? 14.0,
             fontFamily: 'Montserrat',
-            fontWeight: fontW == null? FontWeight.normal : fontW,
-            color: color == null? Colors.black : color,
+            fontWeight: fontW ?? FontWeight.normal,
+            color: color ?? Colors.black,
         ),
       ),
     );
   }
 }
 
-class TranslatedText extends StatelessWidget {
 
+
+class MyAppBar extends AppBar {
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final String text;
+  final Color backgroundColor;
+  final Color textColor;
+
+
+  MyAppBar(this.text, {Key key, this.textColor, this.backgroundColor, this.scaffoldKey}) :
+
+        super(key: key,
+elevation: 0.0,
+        backgroundColor: backgroundColor ?? Colors.blue,
+        title: new TextContainer(text,
+        fontSize: 24.0, fontW: FontWeight.w700,
+        color: textColor ?? Colors.white,),
+
+        centerTitle: true,
+
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.more_vert, color: textColor ?? Colors.white,),
+            onPressed: () => print('Hola'),
+          ),
+        ],
+
+        leading: new IconButton(icon: new Icon(Icons.subject, color: textColor ?? Colors.white,),
+          onPressed: () => scaffoldKey.currentState.openDrawer()),
+
+
+
+    );
+}
+
+class MyInput extends StatelessWidget {
+
+  final String label;
+  final String hint;
+  final bool obscureText;
+  final bool menu;
   final String keyText;
   final double fontSize;
   final TextAlign align;
   final FontWeight fontW;
   final Color color;
 
-  TranslatedText(this.keyText, this.fontSize,
-      [this.align, this.fontW, this.color]):
-        super();
-
-  TranslatedText.c(this.text, this.fontSize,
-      [this.align, this.fontW, this.color]):
-        super();
-
-  TranslatedText.t(this.keyText):
-        super();
+  MyInput({Key key, this.label, this.hint, this.obscureText, this.menu,
+    this.keyText, this.fontSize,
+      this.align, this.fontW, this.color}): super(key: key);
 
   String getS(BuildContext context){
-    return keyText == null? text : Translations.of(context).text(keyText);
+    return keyText == null? label : Translations.of(context).text(keyText);
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Text(getS(context),
-        //textAlign: align == null? TextAlign.center : align,
-        style: new TextStyle(
-          fontSize: fontSize == null? 14.0 : fontSize,
-          fontFamily: 'Montserrat',
-          fontWeight: fontW == null? FontWeight.normal : fontW,
-          color: color == null? Colors.black : color,
+    /*
+    new TextFormField(
+      decoration: new InputDecoration(
+        hintText: 'Luis G',
+        labelText: 'Nombre',
+        hintStyle: new TextStyle(decoration: TextDecoration.underline),
+        border: new OutlineInputBorder(
+
+          borderSide: new BorderSide(color: Colors.red, width: 5.0, style: BorderStyle.solid),
         ),
+
+      ),
+    ),
+    new Theme(
+    data: Theme.of(context).copyWith(primaryColor: Colors.red),
+      child: new TextField(
+        decoration: new InputDecoration(
+          labelText: "Hello",
+          labelStyle: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).primaryColor),
+        ),
+      ),
+    ),
+
+    */
+
+    return new Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        new Container(
+          child: new Text(label,
+            style: new TextStyle(color: Colors.blue, ),
+            textAlign: TextAlign.left,
+          ),
+          padding: EdgeInsets.only(bottom: 8.0),
+        ),
+
+        new Container(
+          //padding: const EdgeInsets.all(8.0),
+          alignment: Alignment.center,
+          height: 50.0,
+          decoration: new BoxDecoration(
+            border: new Border.all(
+              color: Colors.blueAccent,
+              width: 1.0
+            ),
+            borderRadius: new BorderRadius.circular(0.0),
+          ),
+          child: new TextField(
+            obscureText: obscureText ?? false,
+            decoration: new InputDecoration(
+              hintText: hint,
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(left: 25.0, right: 10.0),
+              suffixIcon: menu == null ? null :
+              new Icon(Icons.keyboard_arrow_down, size: 28.0, color: Colors.blue,),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
 
-class MyAppBar extends AppBar {
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class MyTitle extends StatelessWidget {
 
-  MyAppBar({Key key, this.scaffoldKey}) : super(
-    key: key,
-    title: new TranslatedText('main_title1',
-        24.0, null, FontWeight.w700, Colors.white),
-    centerTitle: true,
-    actions: <Widget>[
-      new IconButton(
-        icon: new Icon(Icons.ac_unit),
-        onPressed: () => print('Hola'),
-      ),
-    ],
-    leading: new IconButton(icon: new Icon(Icons.menu),
-        onPressed: () => scaffoldKey.currentState.openDrawer()),
-  );
-}
-
-class AppBarX extends AppBar {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  AppBarX(this.scaffoldKey) :
-        super(
-        centerTitle: true,
-        title: new TranslatedText('main_title1',
-            24.0, null, FontWeight.w700, Colors.white),
-        leading: new IconButton(icon: new Icon(Icons.menu),
-            onPressed: () => scaffoldKey.currentState.openDrawer()),
-      );
-
-  AppBarX.withTitle(String title) :
-        super(
-        centerTitle: true,
-        title: new TranslatedText.c(title,
-            24.0, null, FontWeight.w700, Colors.white),
-      );
-}
-
-class Translated extends Text {
-
-  final String text;
-  final String keyText;
-  final double fontSize;
-  final TextAlign align;
-  final FontWeight fontW;
+  final String title;
+  final String subtitle;
+  final bool appbar;
   final Color color;
 
-  Translated({this.keyText, this.text, this.fontSize,
-    this.align, this.fontW, this.color}):
-        super('',
-        //keyText == null? text : Translations.of(context).text(keyText),
-        //textAlign: align == null? TextAlign.center : align,
-        style: new TextStyle(
-          fontSize: fontSize == null? 14.0 : fontSize,
-          fontFamily: 'Montserrat',
-          fontWeight: fontW == null? FontWeight.normal : fontW,
-          color: color == null? Colors.black : color,
-        ),
-      );
+  MyTitle({Key key, this.title, this.subtitle, this.appbar, this.color,}): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Column(children: <Widget>[
+      new Padding(padding: EdgeInsets.only(top: (appbar == null || !appbar) ? 80.0 : 30.0)),
+
+      new TextContainer(title, fontSize: 24.0,
+          fontW: FontWeight.w700, color: Colors.blue),
+
+      new Padding(padding: EdgeInsets.only(top: 25.0)),
+
+      new TextContainer(subtitle, fontSize: 18.0,
+          color: Colors.blue),
+
+      new Padding(padding: EdgeInsets.only(top: 25.0)),
+      ],
+    );
+  }
 }
+
+
