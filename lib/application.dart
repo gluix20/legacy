@@ -97,7 +97,8 @@ class Question {
 }
 
 List<Question> questions = new List<Question>();
-Future<List<Question>> fetchQuestions(String topic) async {
+Future<List<Question>> fetchQuestions({String topic, String age}) async {
+
   final response =
   //await http.get('http://10.0.2.2:3000/db');
   await http.get('https://my-json-server.typicode.com/gluix20/treasure/db');
@@ -107,7 +108,10 @@ Future<List<Question>> fetchQuestions(String topic) async {
   ///
   questions = new List<Question>();
   for (var q in responseJson['questions']) {
-    if(topic == q['category']) {
+
+    if( (topic == q['category'] || topic == null) &&
+        (age == q['age'] || age == null)
+    ) {
       Question newQ = new Question(
         id: q['id'],
         text: q['text'],

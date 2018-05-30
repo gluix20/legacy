@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'registry.dart';
 import 'story.dart';
@@ -48,9 +51,8 @@ class _TopicPageState extends State<TopicPage> {
 
     new Container(
         child: new FutureBuilder<List<Question>>(
-          future: fetchQuestions(widget.topic.topic.toLowerCase()),
+          future: fetchQuestions(topic: widget.topic.topic.toLowerCase()),
           builder: (context, snapshot) {
-            //print(snapshot.data[0].category);
             if (snapshot.hasData) {
               final List<ListTile> lt = new List<ListTile>();
 
@@ -98,11 +100,104 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
+  Widget getBlock(Age age, Size size) {
+    final double iconSize = size.width * 0.065;
+    final double fontSize = size.width * 0.035;
+    //print(fontSize);
+
+    return new Container(
+      //margin: new EdgeInsets.only(bottom: size.height * 0.05),
+      child: new Column(
+        children: <Widget>[
+          new Container(
+            width: topicWidth,
+            child: new Row(
+              children: <Widget>[
+                new TextContainer(age.text.toUpperCase(), fontSize: 20.0, color: Colors.blue,
+                fontW: FontWeight.w700, bottom: 20.0,),
+                new LinearProgressIndicator(value: 50.0),
+
+
+
+                new Circle(
+
+                  color: Colors.blue,
+                  icon: new Icon(Icons.place, size: iconSize, color: Colors.white),
+                  circleSize: circleWidth,
+                ),
+
+                new Padding(padding: EdgeInsets.only(right: topicPadding)),
+
+                new TextContainer(age.text.toUpperCase(), fontSize: fontSize, fontW: FontWeight.w700,
+                    color: Colors.blue),
+
+                new Padding(padding: EdgeInsets.only(right: topicPadding)),
+              ],
+            ),
+          ),
+
+          new Container(
+            width: actionWidth,
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+
+                new Circle(
+                  type: 'more',
+                  color: Colors.white,
+                  icon: new Icon(Icons.apps, size: iconSize, color: Colors.blue),
+                  circleSize: circleWidth,
+                ),
+
+                new Circle(
+                  type: 'plus',
+                  color: Colors.white,
+                  icon: new Icon(Icons.add, size: iconSize, color: Colors.blue),
+                  circleSize: circleWidth,
+                ),
+              ],),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   initState()  {
     super.initState();
   }
 }
 
+class Age {
+  int id;
+  String text;
+  int skipped;
+  int enabled;
+  Age({this.id, this.text, this.skipped, this.enabled});
 
+  bool isSkipped() => this.skipped == 1;
+  bool isEnabled() => this.enabled == 1;
+}
 
+List<Age> ages = new List<Age>();
+
+Future<List<Age>> fetchAges() async {
+  final response =
+  //await http.get('http://10.0.2.2:3000/db');
+  await http.get('https://my-json-server.typicode.com/gluix20/treasure/db');
+  final responseJson = json.decode(response.body);
+  /// This method it's called every time the AgePage it's build
+  /// but with the line below, the list of questions are reinitiallized.
+  ///
+  ages = new List<Age>();
+  for (var q in responseJson['ages']) {
+    Age newT = new Age(
+      id: q['id'],
+      text: q['text'],
+      skipped: q['skipped'],
+      enabled: q['id'] == 1 ? 1 : 0,
+    );
+    ages.add(newT);
+  }
+  return ages;
+}
