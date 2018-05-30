@@ -41,15 +41,17 @@ class MyAppBar extends AppBar {
   final String text;
   final Color backgroundColor;
   final Color textColor;
+  final double fontSize;
 
 
-  MyAppBar(this.text, {Key key, this.textColor, this.backgroundColor, this.scaffoldKey}) :
+  MyAppBar(this.text, {Key key, this.textColor, this.backgroundColor, this.scaffoldKey, this.fontSize}) :
 
         super(key: key,
-elevation: 0.0,
+        elevation: 0.0,
         backgroundColor: backgroundColor ?? Colors.blue,
         title: new TextContainer(text,
-        fontSize: 24.0, fontW: FontWeight.w700,
+        fontSize: fontSize ?? 24.0,
+          fontW: FontWeight.w700,
         color: textColor ?? Colors.white,),
 
         centerTitle: true,
@@ -63,9 +65,6 @@ elevation: 0.0,
 
         leading: new IconButton(icon: new Icon(Icons.subject, color: textColor ?? Colors.white,),
           onPressed: () => scaffoldKey.currentState.openDrawer()),
-
-
-
     );
 }
 
@@ -160,8 +159,6 @@ class MyTitle extends StatelessWidget {
   final String subtitle;
   final bool appbar;
   final Color color;
-  final double topPadding;
-  final double betweenPadding;
 
   MyTitle({Key key, this.title, this.subtitle, this.appbar, this.color}):
         super(key: key);
@@ -173,20 +170,33 @@ class MyTitle extends StatelessWidget {
     ///
     final Size screenSize = MediaQuery.of(context).size;
     final topPadding = (appbar == null || !appbar) ? screenSize.height * 0.10 : screenSize.height * 0.03;
+    final bottomPadding = screenSize.height * 0.05;
     final betweenPadding = screenSize.height * 0.03;
+    final sidesWidth = screenSize.width * 0.10;
 
-    //print('${screenSize.height * 0.10} : ${screenSize.height * 0.25} : $topPadding');
-    return new Column(children: <Widget>[
-      new Padding(padding: EdgeInsets.only(top: topPadding,)),
+    final boxHeight = screenSize.height * 0.20;
+    final boxWidth = screenSize.width * 1.0;
 
-      new TextContainer(title, fontSize: 24.0,
-          fontW: FontWeight.w700, color: Colors.blue),
+    //print('boxHeght: ${boxHeight} -- boxWidth: ${boxWidth} -- sidesWidth: ${sidesWidth}');
+    //print('topPaading: ${topPadding} -- betweenPadding: ${betweenPadding} -- screenHeight: ${screenSize.height}');
 
-      new Padding(padding: EdgeInsets.only(top: betweenPadding)),
+    return new Container(
 
-      new TextContainer(subtitle, fontSize: 18.0,
-          color: Colors.blue),
+      //constraints: new BoxConstraints.expand(height: boxHeight, width: boxWidth,),
+      padding: new EdgeInsets.only(
+          top: topPadding, bottom: bottomPadding,
+          left: sidesWidth, right: sidesWidth),
+      child: new Column(
+      children: <Widget>[
+          (title != null) ? new TextContainer(title, fontSize: 24.0,
+            fontW: FontWeight.w700, color: Colors.blue): new Text(''),
+
+          (title != null) ? new Padding(padding: EdgeInsets.only(top: betweenPadding)) : new Text(''),
+
+        new TextContainer(subtitle, fontSize: 18.0,
+            color: Colors.blue),
       ],
+    ),
     );
   }
 }

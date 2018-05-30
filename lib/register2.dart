@@ -4,7 +4,7 @@ import 'package:validate/validate.dart';
 import 'welcome.dart';
 import 'translations.dart';
 import 'weed.dart';
-import 'stories.dart';
+import 'topics.dart';
 
 
 class Register2Page extends StatefulWidget {
@@ -28,24 +28,14 @@ class Register2PageState extends State<Register2Page> {
       key: _scaffoldKey,
       body: new Column(
         children: <Widget>[
-          new Container(
-          constraints: new BoxConstraints.expand(
-            height: screenSize.height * 0.27,
-              width: screenSize.width * 1.0,
-            ),
-          padding: new EdgeInsets.only(bottom: screenSize.height * 0.03, left: 40.0, right: 40.0),
-
-          child: new Column(children: <Widget>[
-              new MyTitle(
-                title: T(context, t: 'Welcome John'),
-                subtitle: T(context, k: 'wisdom_lbl1'),),
-            ],)
+          new MyTitle(
+            title: T(context, t: 'Welcome John'),
+            subtitle: T(context, k: 'wisdom_lbl1'),
           ),
-
 
           new Container(
             constraints: new BoxConstraints.expand(
-              height: screenSize.height * 0.73,
+              height: screenSize.height * 0.70,
               width: screenSize.width * 1.0,
             ),
 
@@ -80,7 +70,7 @@ class Register2PageState extends State<Register2Page> {
                       Navigator.push(
                         context,
                         new MaterialPageRoute(
-                            builder: (context) => new StoriesPage()),
+                            builder: (context) => new TopicsPage()),
                       );
                     },
                     shape: new RoundedRectangleBorder(

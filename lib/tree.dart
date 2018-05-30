@@ -99,12 +99,12 @@ class CircleCard extends StatelessWidget {
     //print(MediaQuery.of(context).size.width);
 
     return new GestureDetector(
-            onTap: () {
+            onTap: () { null;/*
               Navigator.push(
                 context,
                 new MaterialPageRoute(
                     builder: (context) => new TopicPage(choice)),
-              );
+              );*/
             },
             child: new Column(
               children: <Widget>[

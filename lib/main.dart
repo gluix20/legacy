@@ -7,7 +7,7 @@ import 'translations.dart';
 import 'application.dart';
 import 'intro.dart';
 import 'register2.dart';
-import 'stories.dart';
+import 'topics.dart';
 
 
 void main() => runApp(new MyApp());

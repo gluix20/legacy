@@ -4,12 +4,12 @@ import 'registry.dart';
 import 'story.dart';
 import 'weed.dart';
 import 'application.dart';
-import 'tree.dart';
+import 'translations.dart';
+import 'topics.dart';
 
 class TopicPage extends StatefulWidget {
-  final Choice choice;
-
-  TopicPage(this.choice, {Key key}) :  super(key: key);
+  final Topic topic;
+  TopicPage(this.topic, {Key key}) :  super(key: key);
 
   @override
   _TopicPageState createState() => new _TopicPageState();
@@ -18,23 +18,37 @@ class TopicPage extends StatefulWidget {
 class _TopicPageState extends State<TopicPage> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  @override
-  initState()  {
-    super.initState();
-
-  }
+  double sidesWidth;
+  double topicWidth;
+  double actionWidth;
+  Size screenSize;
+  double circleWidth;
+  double topicPadding;
 
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
+    /// These have to sum 1.0
+    sidesWidth = screenSize.width * 0.04;
+    topicWidth = screenSize.width * 0.48;
+    actionWidth = screenSize.width * 0.34;
+    ///
+    circleWidth = screenSize.width * 0.15;
+    topicPadding = screenSize.width * 0.02;
+
 
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar('Topic: ' + widget.choice.title,),
-      body: new Container(
+      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(),),
+      body: new ListView(
+        children: <Widget>[
+          new TextContainer(T(context, k: 'wisdom_lbl1'),
+          fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
+
+    new Container(
         child: new FutureBuilder<List<Question>>(
-          future: fetchQuestions(widget.choice.title.toLowerCase()),
+          future: fetchQuestions(widget.topic.topic.toLowerCase()),
           builder: (context, snapshot) {
             //print(snapshot.data[0].category);
             if (snapshot.hasData) {
@@ -60,7 +74,7 @@ class _TopicPageState extends State<TopicPage> {
                 );
                 }
               }
-              return new ListView(
+              return new Column(
                 /// Receives a list of tiles constructed above in the future builder.
                 ///
                 children: lt
@@ -79,9 +93,14 @@ class _TopicPageState extends State<TopicPage> {
           },
         ),
       ),
-
+]),
 
     );
+  }
+
+  @override
+  initState()  {
+    super.initState();
   }
 }
 

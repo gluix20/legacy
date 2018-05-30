@@ -97,7 +97,6 @@ class Question {
 }
 
 List<Question> questions = new List<Question>();
-
 Future<List<Question>> fetchQuestions(String topic) async {
   final response =
   //await http.get('http://10.0.2.2:3000/db');
@@ -126,6 +125,7 @@ Future<List<Question>> fetchQuestions(String topic) async {
   return questions;
 }
 
+/// Review PUT requests!!!!
 Future<http.Response> putQuestion(int id) async {
   Map jsonData = {
     'skipped' : '1'
