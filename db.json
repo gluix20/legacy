@@ -33,5 +33,19 @@
      "age": "chilhood" , "subcategory": "parents" }
 
   ],
-  "profile": { "name": "typicode" }
+  "profile": { "name": "typicode" },
+  "topics": [
+    { "id": 1, "topic": "family", "skipped": 0 },
+    { "id": 2, "topic": "education", "skipped": 0 },
+    { "id": 3, "topic": "friends", "skipped": 0 },
+    { "id": 4, "topic": "pets", "skipped": 0 },
+    { "id": 5, "topic": "hobbies", "skipped": 0 },
+    { "id": 6, "topic": "music", "skipped": 0 },
+    { "id": 7, "topic": "TV", "skipped": 0 },
+    { "id": 8, "topic": "travels", "skipped": 0 },
+    { "id": 9, "topic": "love", "skipped": 0 },
+    { "id": 10, "topic": "food", "skipped": 0 },
+    { "id": 11, "topic": "style", "skipped": 0 },
+    { "id": 12, "topic": "home", "skipped": 0 }
+  ]
 }

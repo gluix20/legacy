@@ -39,6 +39,7 @@ class _TopicPageState extends State<TopicPage> {
             //print(snapshot.data[0].category);
             if (snapshot.hasData) {
               final List<ListTile> lt = new List<ListTile>();
+
               for(var q in snapshot.data) {
                 if(!q.isSkipped()) { lt.add( new ListTile(
                   title: new Text('${q.id} ${q.text}'),

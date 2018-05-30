@@ -125,77 +125,75 @@ class RegisterPageState extends State<RegisterPage> {
               height: screenSize.height * 0.30,
               width: screenSize.width * 1.0,
             ),
-            child:
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
 
-          new Container(
-            width: screenSize.width, height: 50.0,
-            child: new RaisedButton(
-              child: new Text('CONTINUE',
-                  style: new TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new Register2Page()),
-                );
-              },
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0)),
-              disabledElevation: 0.0,
-              color: Colors.blue,
-              disabledColor: Colors.white,
+                new Container(
+                  width: screenSize.width, height: 50.0,
+                  child: new RaisedButton(
+                    child: new Text('CONTINUE',
+                        style: new TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new Register2Page()),
+                      );
+                    },
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    disabledElevation: 0.0,
+                    color: Colors.blue,
+                    disabledColor: Colors.white,
 
+                  ),
+                  //margin: new EdgeInsets.only(top: 20.0, bottom: 0.0),
+                ),
+
+                //new Padding(padding: EdgeInsets.only(top: 15.0)),
+
+                new Container(
+
+                  //margin: EdgeInsets.all(20.0),
+                  alignment: Alignment.center,
+                  height: 5.0, width: 30.0,
+                  decoration: new BoxDecoration(
+                    color: Colors.grey,
+                    border: new Border.all(
+                        color: Colors.grey,
+
+                        width: 1.0
+                    ),
+                    borderRadius: new BorderRadius.circular(30.0),
+
+                  ),
+                ),
+
+                //new Padding(padding: EdgeInsets.only(top: 15.0)),
+
+                new Container(
+                  width: screenSize.width, height: 50.0,
+                  child: new OutlineButton.icon(
+                    borderSide: new BorderSide(width: 3.0, color: Colors.blue),
+                    icon: const Icon(Icons.tag_faces, color: Colors.blue,),
+                    label: new Text('LOGIN WITH FACEBOOK',
+                        style: new TextStyle(
+                          //color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue)),
+                    onPressed: () {
+
+                    },
+                    color: Colors.white,
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            //margin: new EdgeInsets.only(top: 20.0, bottom: 0.0),
-          ),
-
-          //new Padding(padding: EdgeInsets.only(top: 15.0)),
-
-          new Container(
-
-            //margin: EdgeInsets.all(20.0),
-            alignment: Alignment.center,
-            height: 5.0, width: 30.0,
-            decoration: new BoxDecoration(
-              color: Colors.grey,
-              border: new Border.all(
-                  color: Colors.grey,
-
-                  width: 1.0
-              ),
-              borderRadius: new BorderRadius.circular(30.0),
-
-            ),
-          ),
-
-          //new Padding(padding: EdgeInsets.only(top: 15.0)),
-
-          new Container(
-            width: screenSize.width, height: 50.0,
-            child: new OutlineButton.icon(
-              borderSide: new BorderSide(width: 3.0, color: Colors.blue),
-              icon: const Icon(Icons.tag_faces, color: Colors.blue,),
-              label: new Text('LOGIN WITH FACEBOOK',
-                  style: new TextStyle(
-                    //color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue)),
-              onPressed: () {
-
-              },
-              color: Colors.white,
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-              ),
-            ),
-          ),
-
-          ],
-          ),
           ),
         ],
       )

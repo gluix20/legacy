@@ -11,8 +11,8 @@ class Bar {
   final Color color;
   final double dx;
   final double dy;
-  final radius = 20.0;
-
+  final double radius = 20.0;
+  static double staticRadius = 20.0;
 
   Bar(this.color, this.dx, this.dy);
 
@@ -27,11 +27,17 @@ class Bar {
   }
 
   //Method that returns a random color object at (0.0 , 500.0) point.
-  factory Bar.random() {
+  factory Bar.random({double height}) {
+
     final random = new Random();
     double nextdy = 0.0;
+
+    /// If the number is minor 140, then keep trying until get a mayor.
+    /// The random nextDouble (0.0 to 1.0) will be multiplied by the height
+    /// of the screen minus 3 times the radius of the ball, to never gets off
+    /// the screen.
     while (nextdy <= 140 ){
-      nextdy = random.nextDouble() * 620; //El 640 representa el size height 700 menos 3 veces el radius 20.
+      nextdy = random.nextDouble() * (height - 3 * staticRadius);
     }
 
     return new Bar(

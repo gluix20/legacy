@@ -171,6 +171,7 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
 
   @override
   Widget build(BuildContext context) {
+
     final BottomNavigationBar botNavBar = new BottomNavigationBar(
       items: _navigationViews
           .map((NavigationIconView navigationView) => navigationView.item)

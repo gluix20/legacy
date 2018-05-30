@@ -7,6 +7,7 @@ import 'weed.dart';
 import 'tree.dart';
 import 'weather.dart';
 import 'application.dart';
+import 'ball.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -138,7 +139,7 @@ class LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.push(context,
                           new MaterialPageRoute(
-                              builder: (context) => new MyApp()),
+                              builder: (context) => new BallPage()),
                         );
                       },
                       borderSide: new BorderSide(width: 3.0),

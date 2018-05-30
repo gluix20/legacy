@@ -160,23 +160,32 @@ class MyTitle extends StatelessWidget {
   final String subtitle;
   final bool appbar;
   final Color color;
+  final double topPadding;
+  final double betweenPadding;
 
-  MyTitle({Key key, this.title, this.subtitle, this.appbar, this.color,}): super(key: key);
+  MyTitle({Key key, this.title, this.subtitle, this.appbar, this.color}):
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /// If there is no appbar the top padding for the title will be 10% of the screen.
+    /// If there is, 3%. The between title and subtitle padding will be a 3% of the screen.
+    ///
+    final Size screenSize = MediaQuery.of(context).size;
+    final topPadding = (appbar == null || !appbar) ? screenSize.height * 0.10 : screenSize.height * 0.03;
+    final betweenPadding = screenSize.height * 0.03;
+
+    //print('${screenSize.height * 0.10} : ${screenSize.height * 0.25} : $topPadding');
     return new Column(children: <Widget>[
-      new Padding(padding: EdgeInsets.only(top: (appbar == null || !appbar) ? 80.0 : 30.0)),
+      new Padding(padding: EdgeInsets.only(top: topPadding,)),
 
       new TextContainer(title, fontSize: 24.0,
           fontW: FontWeight.w700, color: Colors.blue),
 
-      new Padding(padding: EdgeInsets.only(top: 25.0)),
+      new Padding(padding: EdgeInsets.only(top: betweenPadding)),
 
       new TextContainer(subtitle, fontSize: 18.0,
           color: Colors.blue),
-
-      new Padding(padding: EdgeInsets.only(top: 25.0)),
       ],
     );
   }

@@ -87,6 +87,7 @@ const List<Choice> choices = const <Choice>[
       title: 'Languages', icon: Icons.translate, level: 6, hPosition: 2),
 ];
 
+
 class CircleCard extends StatelessWidget {
   CircleCard({Key key, this.choice});
 

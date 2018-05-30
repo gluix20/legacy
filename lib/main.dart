@@ -73,10 +73,10 @@ class _MyAppState extends State<MyApp> {
       /// To remove the banner uncomment this:
       /// debugShowCheckedModeBanner: false,
       ///
-      home: new LoginPage(),
+      //home: new LoginPage(),
       //home: new StoriesPage(),
       //home: new IntroPage(),
-      //home: new SplashPage()
+      home: new SplashPage()
     );
   }
 }
