@@ -43,10 +43,10 @@ class _TopicPageState extends State<TopicPage> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(),),
+      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(), fontSize: 18.0,),
       body: new ListView(
         children: <Widget>[
-          new TextContainer(T(context, k: 'wisdom_lbl1'),
+          new TextContainer(T(context, k: 'lorem_lbl1'),
           fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
 
     new Container(
@@ -119,13 +119,13 @@ class _TopicPageState extends State<TopicPage> {
           new Align(
             alignment: Alignment.centerLeft ,
             child: new TextContainer(age.text.toUpperCase(), fontSize: 20.0, color: Colors.blue,
-              fontW: FontWeight.w700, bottom: 10.0, ),
+              fontW: FontWeight.w700, bottom: 15.0),
           ),
 
           new LinearProgressIndicator(value: 0.5),
 
           new FutureBuilder<List<Question>>(
-            future: fetchQuestions(age: age.text.toLowerCase()),
+            future: fetchQuestions(age: age.text.toLowerCase(), topic: widget.topic.topic.toLowerCase()),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
 
@@ -138,17 +138,24 @@ class _TopicPageState extends State<TopicPage> {
                     lt.add(
                         new ListTile(
 
-                          title: new Text('${q.id} ${q.text}'),
-                          leading: q.isAnswered()? new Icon(Icons.check_box) : new Icon(Icons.check_box_outline_blank),
+                          title: new TextContainer('${q.text}', color: Colors.blue, fontSize: 16.0, align: TextAlign.left,),
+                          leading: q.isAnswered()? new Icon(Icons.favorite, color: Colors.blue,) :
+                          new Icon(Icons.favorite_border, color: Colors.blue),
                           onTap: () {
-                            Navigator.push(context,
-                              new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
+                            showDialog(context: context, builder: (BuildContext context){
+                              //return getDialog(q);
+                              return new MyDialog(q);
+                            },
                             );
+
+
                           },
                           trailing: new IconButton(
-                            icon: new Icon(Icons.thumb_down),
+                            icon: new Icon(Icons.keyboard_arrow_right, size: 40.0, color: Colors.blue),
                             onPressed: () {
-                              print('Question ${q.id} Skipped');
+                              Navigator.push(context,
+                                new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
+                              );
                             },
                           ),
                         )
@@ -173,11 +180,12 @@ class _TopicPageState extends State<TopicPage> {
               return new Center(child: new CircularProgressIndicator());
             },
           ),
-          new Padding(padding: EdgeInsets.only(right: topicPadding)),
+          new Padding(padding: EdgeInsets.only(bottom: 40.0)),
         ],
       ),
     );
   }
+
 
   @override
   initState()  {
@@ -217,4 +225,81 @@ Future<List<Age>> fetchAges() async {
     ages.add(newT);
   }
   return ages;
+}
+
+class MyDialog extends Dialog {
+  final Question question;
+
+  MyDialog(this.question) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return new AnimatedPadding(
+
+      padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
+      duration: insetAnimationDuration,
+      curve: insetAnimationCurve,
+
+      child: new MediaQuery.removeViewInsets(
+
+        removeLeft: true,
+        removeTop: true,
+        removeRight: true,
+        removeBottom: true,
+        context: context,
+        child: new Center(
+          child: new ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 280.0, maxHeight: 570.0),
+              /// This code is from Dialog Flutter Class, the Material Widget was substituted
+              /// by the container in the method: getContainer.
+            child: getContainer(context)
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  Widget getContainer(BuildContext context) {
+    return new Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+
+        //color: Colors.white30,
+        decoration: new BoxDecoration(
+
+          color: Colors.white,
+          borderRadius: new BorderRadius.circular(20.0),
+          border: new Border.all(
+            width: 2.0,
+            color: Colors.white,
+          ),
+        ),
+
+        child: new Column(children: <Widget>[
+          new TextContainer('${question.text}', color: Colors.blue,
+              fontSize: 18.0, align: TextAlign.center, fontW: FontWeight.w700, bottom: 20.0, top: 30.0),
+          new FlutterLogo(
+            colors: Colors.blue,
+            size: 200.0,
+          ),
+
+          new TextContainer(T(context, k: 'lorem_lbl1'),
+            fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
+
+          new Container(
+            width: 250.0,
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new MyButton(text: 'SKIP', type: 'outline', width: 80.0, height: 50.0,
+                    widget: new StoryPage(hint: question.text)),
+                new MyButton(text: 'WRITE', type: 'raised', width: 80.0, height: 50.0,
+                    widget: new StoryPage(hint: question.text)),
+              ],
+            ),
+            //padding: EdgeInsets.only(top: 70.0, bottom: 0.0),
+          ),
+        ],)
+    );
+  }
 }

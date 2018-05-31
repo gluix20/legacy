@@ -19,7 +19,6 @@ class TextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      //alignment: AlignmentGeometry,
       margin: new EdgeInsets.only(top: top ?? 0.0, bottom: bottom ?? 0.0),
       child: new Text(
         text,
@@ -29,6 +28,7 @@ class TextContainer extends StatelessWidget {
             fontFamily: 'Montserrat',
             fontWeight: fontW ?? FontWeight.normal,
             color: color ?? Colors.black,
+            decoration: TextDecoration.none
         ),
       ),
     );
@@ -199,6 +199,59 @@ class MyTitle extends StatelessWidget {
       ],
     ),
     );
+  }
+}
+
+class MyButton extends StatelessWidget {
+
+  final String text;
+  final double fontSize;
+  final double top;
+  final double bottom;
+  final TextAlign align;
+  final FontWeight fontW;
+  final Color color;
+  final String type;
+  final double width;
+  final Widget widget;
+  final double height;
+
+  MyButton({@required this.text, this.fontSize, this.top, this.bottom,
+    this.align, this.fontW, this.color,
+    @required this.type, @required this.width, this.widget, @required this.height}) : super();
+
+  void action(BuildContext context) {
+    Navigator.push( context,
+        new MaterialPageRoute(builder: (context) => widget));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final borderShape = new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0));
+
+    if(type == 'outline') {
+      return new OutlineButton(
+        child: new Container(width: width, height: height, alignment: Alignment.center,
+            child: new TextContainer(text, fontW: FontWeight.w700, color: Colors.blue,)),
+        onPressed: () => action(context),
+        color: Colors.white,
+        shape: borderShape,
+        borderSide: new BorderSide(width: 4.0, color: Colors.blue.shade100),
+      );
+
+    } else if(type == 'raised') {
+      return new RaisedButton(
+        child: new Container(width: width, height: height, alignment: Alignment.center,
+            child: new TextContainer(text, fontW: FontWeight.w700, color: Colors.white,)),
+        onPressed: () => action(context),
+        shape: borderShape,
+        elevation: 0.0,
+        color: Colors.blue,
+        disabledColor: Colors.white,
+      );
+    }
+
+
   }
 }
 
