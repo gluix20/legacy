@@ -19,6 +19,7 @@ class TextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
+      //alignment: AlignmentGeometry,
       margin: new EdgeInsets.only(top: top ?? 0.0, bottom: bottom ?? 0.0),
       child: new Text(
         text,

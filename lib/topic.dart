@@ -50,36 +50,43 @@ class _TopicPageState extends State<TopicPage> {
           fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
 
     new Container(
-        child: new FutureBuilder<List<Question>>(
-          future: fetchQuestions(topic: widget.topic.topic.toLowerCase()),
+        child: new FutureBuilder<List<Age>>(
+          /// It calls the http GET method for AGES.
+          future: fetchAges(),
           builder: (context, snapshot) {
+
             if (snapshot.hasData) {
+
               final List<ListTile> lt = new List<ListTile>();
 
-              for(var q in snapshot.data) {
-                if(!q.isSkipped()) { lt.add( new ListTile(
-                  title: new Text('${q.id} ${q.text}'),
-                  leading: q.isAnswered()? new Icon(Icons.check_box) : new Icon(Icons.check_box_outline_blank),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
-                    );
-                  },
-                  trailing: new IconButton(
-                      icon: new Icon(Icons.thumb_down),
-                    onPressed: () {
-                        print('Question ${q.id} Skipped');
-                    },
-                  ),
-                )
-                );
+              for(var age in snapshot.data) {
+
+                if(!age.isSkipped()) {
+                  lt.add(
+                      new ListTile(
+                        title: getBlock(size: screenSize, age: age)
+                      )
+                        /*new Text('${q.id} ${q.text}'),
+                        leading: q.isAnswered()? new Icon(Icons.check_box) : new Icon(Icons.check_box_outline_blank),
+                        onTap: () {
+                          Navigator.push(context,
+                            new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
+                          );
+                        },
+                        trailing: new IconButton(
+                          icon: new Icon(Icons.thumb_down),
+                          onPressed: () {
+                            print('Question ${q.id} Skipped');
+                          },
+                        ),
+                      )*/
+                  );
                 }
               }
               return new Column(
                 /// Receives a list of tiles constructed above in the future builder.
                 ///
-                children: lt
+                  children: lt
               );
               //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
 
@@ -100,63 +107,73 @@ class _TopicPageState extends State<TopicPage> {
     );
   }
 
-  Widget getBlock(Age age, Size size) {
+  Widget getBlock({Age age, Size size}) {
     final double iconSize = size.width * 0.065;
     final double fontSize = size.width * 0.035;
     //print(fontSize);
 
     return new Container(
-      //margin: new EdgeInsets.only(bottom: size.height * 0.05),
+      width: topicWidth,
       child: new Column(
         children: <Widget>[
-          new Container(
-            width: topicWidth,
-            child: new Row(
-              children: <Widget>[
-                new TextContainer(age.text.toUpperCase(), fontSize: 20.0, color: Colors.blue,
-                fontW: FontWeight.w700, bottom: 20.0,),
-                new LinearProgressIndicator(value: 50.0),
-
-
-
-                new Circle(
-
-                  color: Colors.blue,
-                  icon: new Icon(Icons.place, size: iconSize, color: Colors.white),
-                  circleSize: circleWidth,
-                ),
-
-                new Padding(padding: EdgeInsets.only(right: topicPadding)),
-
-                new TextContainer(age.text.toUpperCase(), fontSize: fontSize, fontW: FontWeight.w700,
-                    color: Colors.blue),
-
-                new Padding(padding: EdgeInsets.only(right: topicPadding)),
-              ],
-            ),
+          new Align(
+            alignment: Alignment.centerLeft ,
+            child: new TextContainer(age.text.toUpperCase(), fontSize: 20.0, color: Colors.blue,
+              fontW: FontWeight.w700, bottom: 10.0, ),
           ),
 
-          new Container(
-            width: actionWidth,
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+          new LinearProgressIndicator(value: 0.5),
 
-                new Circle(
-                  type: 'more',
-                  color: Colors.white,
-                  icon: new Icon(Icons.apps, size: iconSize, color: Colors.blue),
-                  circleSize: circleWidth,
-                ),
+          new FutureBuilder<List<Question>>(
+            future: fetchQuestions(age: age.text.toLowerCase()),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
 
-                new Circle(
-                  type: 'plus',
-                  color: Colors.white,
-                  icon: new Icon(Icons.add, size: iconSize, color: Colors.blue),
-                  circleSize: circleWidth,
-                ),
-              ],),
+                final List<ListTile> lt = new List<ListTile>();
+
+                for(var q in snapshot.data) {
+
+                  if(!q.isSkipped()) {
+
+                    lt.add(
+                        new ListTile(
+
+                          title: new Text('${q.id} ${q.text}'),
+                          leading: q.isAnswered()? new Icon(Icons.check_box) : new Icon(Icons.check_box_outline_blank),
+                          onTap: () {
+                            Navigator.push(context,
+                              new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
+                            );
+                          },
+                          trailing: new IconButton(
+                            icon: new Icon(Icons.thumb_down),
+                            onPressed: () {
+                              print('Question ${q.id} Skipped');
+                            },
+                          ),
+                        )
+                    );
+                  }
+                }
+                return new Column(
+                  /// Receives a list of tiles constructed above in the future builder.
+                  ///
+                    children: lt
+                );
+                //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
+
+
+              } else if (snapshot.hasError) {
+
+
+                return new Text("${snapshot.error}");
+              }
+
+              // By default, show a loading spinner
+              return new Center(child: new CircularProgressIndicator());
+            },
           ),
+          new Padding(padding: EdgeInsets.only(right: topicPadding)),
         ],
       ),
     );
