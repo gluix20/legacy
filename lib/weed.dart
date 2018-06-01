@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'translations.dart';
+import 'topics.dart';
+import 'topic.dart';
+import 'topicstories.dart';
+
 
 
 class TextContainer extends StatelessWidget {
@@ -12,13 +16,15 @@ class TextContainer extends StatelessWidget {
   final TextAlign align;
   final FontWeight fontW;
   final Color color;
+  final Alignment contAlign;
 
   TextContainer(this.text, {this.fontSize, this.top, this.bottom,
-      this.align, this.fontW, this.color}) : super();
+      this.align, this.fontW, this.color, this.contAlign}) : super();
 
   @override
   Widget build(BuildContext context) {
     return new Container(
+      alignment: contAlign ?? Alignment.center,
       margin: new EdgeInsets.only(top: top ?? 0.0, bottom: bottom ?? 0.0),
       child: new Text(
         text,
@@ -43,9 +49,12 @@ class MyAppBar extends AppBar {
   final Color backgroundColor;
   final Color textColor;
   final double fontSize;
+  final List<Widget> actions;
+  final Widget leading;
 
 
-  MyAppBar(this.text, {Key key, this.textColor, this.backgroundColor, this.scaffoldKey, this.fontSize}) :
+  MyAppBar(this.text, {Key key, this.textColor, this.backgroundColor,
+    this.scaffoldKey, this.fontSize, this.actions, this.leading}) :
 
         super(key: key,
         elevation: 0.0,
@@ -57,14 +66,14 @@ class MyAppBar extends AppBar {
 
         centerTitle: true,
 
-        actions: <Widget>[
+        actions: actions ?? <Widget>[
           new IconButton(
             icon: new Icon(Icons.more_vert, color: textColor ?? Colors.white,),
             onPressed: () => print('Hola'),
           ),
         ],
 
-        leading: new IconButton(icon: new Icon(Icons.subject, color: textColor ?? Colors.white,),
+        leading: leading ?? new IconButton(icon: new Icon(Icons.subject, color: textColor ?? Colors.white,),
           onPressed: () => scaffoldKey.currentState.openDrawer()),
     );
 }
@@ -254,5 +263,66 @@ class MyButton extends StatelessWidget {
 
   }
 }
+
+class MyCircleButton extends StatelessWidget {
+  final Icon icon;
+  final Color color;
+  final double circleSize;
+  final Topic topic;
+  final Widget widgetNav;
+  final Color borderColor;
+
+
+  MyCircleButton({this.color, this.icon, this.circleSize, this.topic,
+    this.borderColor, this.widgetNav});
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => widgetNav),
+          );
+        },
+        child: new Container(
+          width: circleSize,
+          height: circleSize,
+          decoration: new BoxDecoration(
+            color: color,
+            borderRadius: new BorderRadius.circular(circleSize),
+            border: new Border.all(
+              width: 2.0,
+              color: borderColor ?? Colors.blue,
+            ),
+          ),
+          child: new Center( child: icon ),
+        )
+    );
+  }
+}
+
+class MyBottomNavBar extends StatefulWidget {
+  @override
+  _MyBottomNavBarState createState() => new _MyBottomNavBarState();
+}
+
+class _MyBottomNavBarState extends State<MyBottomNavBar> {
+  @override
+  Widget build(BuildContext context) {
+    return new BottomNavigationBar(
+      items: [
+        new BottomNavigationBarItem(icon: new Icon(Icons.menu, ), title: new Text('')),
+        new BottomNavigationBarItem(icon: new Icon(Icons.edit, ), title: new Text('')),
+        new BottomNavigationBarItem(icon: new Icon(Icons.person, ), title: new Text(''))
+      ],
+      //fixedColor: Colors.blue,
+      //type: BottomNavigationBarType.fixed,
+
+    );
+  }
+}
+
 
 

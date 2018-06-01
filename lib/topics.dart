@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'translations.dart';
 import 'weed.dart';
 import 'topic.dart';
+import 'topicstories.dart';
 
 
 class TopicsPage extends StatefulWidget {
@@ -35,21 +36,12 @@ class TopicsPageState extends State<TopicsPage> {
     topicPadding = screenSize.width * 0.02;
     /// Review the way to make the fontSize a function of the length.
 
-
-    final BottomNavigationBar botNavBar = new BottomNavigationBar(
-      items: [
-        new BottomNavigationBarItem(icon: new Icon(Icons.menu), title: new Text('')),
-        new BottomNavigationBarItem(icon: new Icon(Icons.edit), title: new Text('')),
-        new BottomNavigationBarItem(icon: new Icon(Icons.person), title: new Text(''))
-      ],
-    );
-
     return new Scaffold(
         key: _scaffoldKey,
         drawer: new Drawer(),
         appBar: new MyAppBar(T(context, t: 'HOME'), scaffoldKey: _scaffoldKey,
           backgroundColor: Colors.white30, textColor: Colors.blue, fontSize: 18.0,),
-        bottomNavigationBar: botNavBar,
+        bottomNavigationBar: new MyBottomNavBar(),
         body: new ListView(
           children: <Widget>[
             new MyTitle(
@@ -177,7 +169,7 @@ class Circle extends StatelessWidget {
           Navigator.push(
             context,
             new MaterialPageRoute(
-                builder: (context) => new TopicPage(topic)),
+                builder: (context) => new TopicStoriesPage(topic)),
           );
 
         } else if (type == 'plus') {

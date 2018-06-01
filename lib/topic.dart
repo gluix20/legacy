@@ -122,7 +122,9 @@ class _TopicPageState extends State<TopicPage> {
               fontW: FontWeight.w700, bottom: 15.0),
           ),
 
-          new LinearProgressIndicator(value: 0.5),
+          new LinearProgressIndicator(value: 0.5, backgroundColor: Colors.blue.shade200,
+          ),
+          new Padding(padding: EdgeInsets.only(top: 10.0)),
 
           new FutureBuilder<List<Question>>(
             future: fetchQuestions(age: age.text.toLowerCase(), topic: widget.topic.topic.toLowerCase()),
@@ -138,24 +140,21 @@ class _TopicPageState extends State<TopicPage> {
                     lt.add(
                         new ListTile(
 
-                          title: new TextContainer('${q.text}', color: Colors.blue, fontSize: 16.0, align: TextAlign.left,),
+                          title: new TextContainer('${q.text}', color: Colors.blue, fontSize: 16.0,
+                            contAlign: Alignment.centerLeft, align: TextAlign.left,),
                           leading: q.isAnswered()? new Icon(Icons.favorite, color: Colors.blue,) :
                           new Icon(Icons.favorite_border, color: Colors.blue),
                           onTap: () {
                             showDialog(context: context, builder: (BuildContext context){
-                              //return getDialog(q);
                               return new MyDialog(q);
-                            },
-                            );
-
-
+                            },);
                           },
                           trailing: new IconButton(
                             icon: new Icon(Icons.keyboard_arrow_right, size: 40.0, color: Colors.blue),
                             onPressed: () {
-                              Navigator.push(context,
-                                new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
-                              );
+                              showDialog(context: context, builder: (BuildContext context){
+                                return new MyDialog(q);
+                              },);
                             },
                           ),
                         )
