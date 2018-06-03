@@ -43,7 +43,8 @@ class _TopicPageState extends State<TopicPage> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(), fontSize: 18.0,),
+      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(),
+        context: context,),
       body: new ListView(
         children: <Widget>[
           new TextContainer(T(context, k: 'lorem_lbl1'),

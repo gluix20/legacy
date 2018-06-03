@@ -48,8 +48,7 @@ class _StoryReaderPageState extends State<StoryReaderPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       key: scaffoldKey,
-      appBar: new MyAppBar('POST', textColor: Colors.blue, fontSize: 18.0,
-        backgroundColor: Colors.white30,
+      appBar: new MyAppBar('POST',
         actions: <Widget>[
           new GestureDetector(child: new TextContainer('Share', contAlign: Alignment.center,
             color: Colors.blue, fontW: FontWeight.w700,),

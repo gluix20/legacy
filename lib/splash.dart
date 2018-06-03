@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'login.dart';
+
+import 'weed.dart';
 import 'intro.dart';
 
 class SplashPage extends StatefulWidget {
@@ -10,17 +10,21 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  Size screenSize;
+
   startTime() async {
-    var _duration = new Duration(seconds: 1);
+    var _duration = new Duration(seconds: 3);
     return new Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
     //Navigator.of(context).pushReplacementNamed('/HomeScreen');
+
     Navigator.push(
       context,
       new MaterialPageRoute(builder: (context) => new IntroPage()),
     );
+
   }
 
   @override
@@ -31,13 +35,22 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    screenSize = MediaQuery.of(context).size;
+
     return new Scaffold(
-      body: new Center(
-        child: new FlutterLogo(
-          colors: Colors.blue,
-          size: 170.0,
-        ),
-      ),
+      body: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new FlutterLogo(
+            colors: Colors.blue,
+            size: 170.0,
+          ),
+          new Padding(padding: EdgeInsets.only(top: 25.0)),
+          new TextContainer('TREASURE', color: Colors.blue,
+            fontSize: 44.0, fontW: FontWeight.w700,
+          )
+      ],)
     );
   }
 }

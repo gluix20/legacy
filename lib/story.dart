@@ -48,8 +48,7 @@ class _StoryPageState extends State<StoryPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       key: scaffoldKey,
-      appBar: new MyAppBar('WRITING', textColor: Colors.blue, fontSize: 18.0,
-        backgroundColor: Colors.white30,
+      appBar: new MyAppBar('WRITING',
         actions: <Widget>[
           new GestureDetector(child: new TextContainer('Save', contAlign: Alignment.center,
           color: Colors.blue, fontW: FontWeight.w700,),

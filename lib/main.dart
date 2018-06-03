@@ -24,7 +24,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState(){
     super.initState();
+
+    /// Review this line:
     user.name = 'Nate';
+
     _localeOverrideDelegate = new SpecificLocalizationDelegate(null);
     applic.onLocaleChanged = onLocaleChange;
 
@@ -39,19 +42,43 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     /// This context has not translations, size and defined Theme.
     /// These are the validations:
     ///
     return new MaterialApp(
-      theme: new ThemeData(
-        fontFamily: 'Montserrat',
-        primaryColor: Colors.blue,
-        buttonColor: Colors.blue,
-        hintColor: Colors.blue,
 
+      theme: new ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.blue,
+        /// This one manage the circle and progress bar color.
+        accentColor: Colors.blue,
+        fontFamily: 'Montserrat',
+
+        textTheme: new TextTheme(
+          title: new TextStyle(color: Colors.blue,
+            fontSize: 20.0, fontWeight: FontWeight.w700),
+          body1: new TextStyle(color: Colors.blue,
+              fontSize: 16.0, fontWeight: FontWeight.normal),
+          display1: new TextStyle(color: Colors.blue,
+              fontSize: 24.0, fontWeight: FontWeight.normal),
+          headline:  new TextStyle(color: Colors.blue,
+              fontSize: 24.0, fontWeight: FontWeight.w700),
+          subhead: new TextStyle(color: Colors.blue,
+              fontSize: 18.0, fontWeight: FontWeight.normal),
+          button: new TextStyle(color: Colors.blue,
+              fontWeight: FontWeight.w700),
+          caption: new TextStyle(color: Colors.blue,
+              fontSize: 14.0, fontWeight: FontWeight.w700),
+
+        ),
+
+        iconTheme: new IconThemeData(color: Colors.blue),
+        //primaryColor: Colors.blue,
+        //buttonColor: Colors.blue,
+
+        hintColor: Colors.blue,
 
         inputDecorationTheme: new InputDecorationTheme(
           border: new OutlineInputBorder(
@@ -76,7 +103,8 @@ class _MyAppState extends State<MyApp> {
       //home: new LoginPage(),
       //home: new StoriesPage(),
       //home: new IntroPage(),
-      home: new SplashPage()
+      home: new SplashPage(),
+
     );
   }
 }

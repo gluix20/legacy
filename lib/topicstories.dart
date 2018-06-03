@@ -46,9 +46,7 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(), fontSize: 18.0,
-        backgroundColor: Colors.blue.shade200,
-      ),
+      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(),),
       bottomNavigationBar: new MyBottomNavBar(),
       body: new Stack(children: <Widget>[
         new Container(child: new Column(children: <Widget>[

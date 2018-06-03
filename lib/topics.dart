@@ -39,8 +39,8 @@ class TopicsPageState extends State<TopicsPage> {
     return new Scaffold(
         key: _scaffoldKey,
         drawer: new Drawer(),
-        appBar: new MyAppBar(T(context, t: 'HOME'), scaffoldKey: _scaffoldKey,
-          backgroundColor: Colors.white30, textColor: Colors.blue, fontSize: 18.0,),
+        appBar: new MyAppBar(T(context, t: 'HOME'), context: context,
+          scaffoldKey: _scaffoldKey,),
         bottomNavigationBar: new MyBottomNavBar(),
         body: new ListView(
           children: <Widget>[
@@ -75,11 +75,8 @@ class TopicsPageState extends State<TopicsPage> {
                     ///
                       children: lt
                   );
-                  //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
-
 
                 } else if (snapshot.hasError) {
-
 
                   return new Text("${snapshot.error}");
                 }
@@ -96,7 +93,7 @@ class TopicsPageState extends State<TopicsPage> {
   Widget getRow(Topic topic, Size size) {
     final double iconSize = size.width * 0.065;
     final double fontSize = size.width * 0.035;
-    //print(fontSize);
+    print(fontSize);
 
     return new Container(
 
@@ -115,10 +112,7 @@ class TopicsPageState extends State<TopicsPage> {
               ),
 
               new Padding(padding: EdgeInsets.only(right: topicPadding)),
-
-              new TextContainer(topic.topic.toUpperCase(), fontSize: fontSize, fontW: FontWeight.w700,
-                  color: Colors.blue),
-
+              new Text(topic.topic.toUpperCase(), style: Theme.of(context).textTheme.caption),
               new Padding(padding: EdgeInsets.only(right: topicPadding)),
             ],
           ),
