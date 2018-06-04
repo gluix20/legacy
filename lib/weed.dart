@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'translations.dart';
 import 'topics.dart';
 import 'topic.dart';
-import 'topicstories.dart';
+import 'topicAnswers.dart';
 
 
 
@@ -182,11 +182,6 @@ class MyTitle extends StatelessWidget {
 
     final betweenPadding = size.height * 0.03;
     final hPadding = size.width * 0.10;
-
-
-    final bottomPadding = boxHeight * 0.1;
-
-    //print('topPaading: ${topPadding} -- betweenPadding: ${betweenPadding} -- screenHeight: ${screenSize.height}');
 
     return new Container(
 

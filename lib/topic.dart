@@ -24,154 +24,148 @@ class _TopicPageState extends State<TopicPage> {
   double sidesWidth;
   double topicWidth;
   double actionWidth;
-  Size screenSize;
+  Size size;
   double circleWidth;
   double topicPadding;
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.of(context).size;
+    size = MediaQuery.of(context).size;
     /// These have to sum 1.0
-    sidesWidth = screenSize.width * 0.04;
-    topicWidth = screenSize.width * 0.48;
-    actionWidth = screenSize.width * 0.34;
+    sidesWidth = size.width * 0.04;
+    topicWidth = size.width * 0.48;
+    actionWidth = size.width * 0.34;
     ///
-    circleWidth = screenSize.width * 0.15;
-    topicPadding = screenSize.width * 0.02;
+    circleWidth = size.width * 0.15;
+    topicPadding = size.width * 0.02;
+
+    final double hPadding = size.width * 0.1;
 
 
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(),
-        context: context,),
+      appBar: new MyAppBar(widget.topic.topic.toUpperCase(), context: context, ),
       body: new ListView(
+        padding: EdgeInsets.symmetric(horizontal: hPadding),
+
         children: <Widget>[
-          new TextContainer(T(context, k: 'lorem_lbl1'),
-          fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
+          new Container(
+            height: size.height * 0.2,
+            alignment: Alignment.center,
+            child: new Text(T(context, k: 'lorem_lbl1'),
+              style: Theme.of(context).textTheme.body1, textAlign: TextAlign.center,),
+          ),
 
-    new Container(
-        child: new FutureBuilder<List<Age>>(
-          /// It calls the http GET method for AGES.
-          future: fetchAges(),
-          builder: (context, snapshot) {
 
-            if (snapshot.hasData) {
+          new Container(
+            child: new FutureBuilder<List<Age>>(
+              /// It calls the http GET method for AGES.
+              future: fetchAges(),
+              builder: (context, snapshot) {
 
-              final List<ListTile> lt = new List<ListTile>();
-
-              for(var age in snapshot.data) {
-
-                if(!age.isSkipped()) {
-                  lt.add(
-                      new ListTile(
-                        title: getBlock(size: screenSize, age: age)
-                      )
-                        /*new Text('${q.id} ${q.text}'),
-                        leading: q.isAnswered()? new Icon(Icons.check_box) : new Icon(Icons.check_box_outline_blank),
-                        onTap: () {
-                          Navigator.push(context,
-                            new MaterialPageRoute(builder: (context) => new StoryPage(hint: q.text)),
-                          );
-                        },
-                        trailing: new IconButton(
-                          icon: new Icon(Icons.thumb_down),
-                          onPressed: () {
-                            print('Question ${q.id} Skipped');
-                          },
-                        ),
-                      )*/
+                if (snapshot.hasData) {
+                  final List<Widget> lt = new List<Widget>();
+                  for(var age in snapshot.data) {
+                    if(!age.isSkipped()) {
+                      lt.add(
+                          new Container(
+                            child: getBlock(size: size, age: age)
+                          )
+                      );
+                    }
+                  }
+                  return new Column(
+                    /// Receives a list of tiles constructed above in the future builder.
+                    ///
+                      children: lt
                   );
+                  //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
+
+
+                } else if (snapshot.hasError) {
+
+
+                  return new Text("${snapshot.error}");
                 }
-              }
-              return new Column(
-                /// Receives a list of tiles constructed above in the future builder.
-                ///
-                  children: lt
-              );
-              //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
 
-
-            } else if (snapshot.hasError) {
-
-
-              return new Text("${snapshot.error}");
-            }
-
-            // By default, show a loading spinner
-            return new Center(child: new CircularProgressIndicator());
-          },
-        ),
-      ),
-]),
-
+                // By default, show a loading spinner
+                return new Center(child: new CircularProgressIndicator());
+              },
+            ),
+          ),
+      ]),
     );
   }
 
   Widget getBlock({Age age, Size size}) {
-    final double iconSize = size.width * 0.065;
-    final double fontSize = size.width * 0.035;
-    //print(fontSize);
+    final double iconSize = size.width * 0.1;
 
     return new Container(
-      width: topicWidth,
+      //width: topicWidth,
       child: new Column(
         children: <Widget>[
-          new Align(
-            alignment: Alignment.centerLeft ,
-            child: new TextContainer(age.text.toUpperCase(), fontSize: 20.0, color: Colors.blue,
-              fontW: FontWeight.w700, bottom: 15.0),
+          new Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(bottom: size.height * 0.02),
+            child: new Text(age.text.toUpperCase(), style: Theme.of(context).textTheme.title),
           ),
 
-          new LinearProgressIndicator(value: 0.5, backgroundColor: Colors.blue.shade200,
+          new Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(bottom: size.height * 0.01),
+            child: new LinearProgressIndicator(value: 0.5, backgroundColor: Colors.blue.shade200,),
           ),
-          new Padding(padding: EdgeInsets.only(top: 10.0)),
 
           new FutureBuilder<List<Question>>(
             future: fetchQuestions(age: age.text.toLowerCase(), topic: widget.topic.topic.toLowerCase()),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-
-                final List<ListTile> lt = new List<ListTile>();
-
+                final List<Widget> lt = new List<Widget>();
                 for(var q in snapshot.data) {
-
                   if(!q.isSkipped()) {
-
                     lt.add(
-                        new ListTile(
-
-                          title: new TextContainer('${q.text}', color: Colors.blue, fontSize: 16.0,
-                            contAlign: Alignment.centerLeft, align: TextAlign.left,),
-                          leading: q.isAnswered()? new Icon(Icons.favorite, color: Colors.blue,) :
-                          new Icon(Icons.favorite_border, color: Colors.blue),
-                          onTap: () {
-                            showDialog(context: context, builder: (BuildContext context){
-                              return new MyDialog(q);
-                            },);
-                          },
-                          trailing: new IconButton(
-                            icon: new Icon(Icons.keyboard_arrow_right, size: 40.0, color: Colors.blue),
-                            onPressed: () {
-                              showDialog(context: context, builder: (BuildContext context){
-                                return new MyDialog(q);
-                              },);
+                      new Container(
+                        padding: EdgeInsets.symmetric(vertical: size.height * 0.015),
+                        child: new Row(
+                          children: <Widget>[
+                            new IconButton(icon: q.isAnswered()?
+                              new Icon(Icons.favorite, color: Colors.blue,) :
+                              new Icon(Icons.favorite_border, color: Colors.blue),
+                              onPressed: () {
+                                showDialog(context: context, builder: (BuildContext context){
+                                  return new MyDialog(q);
+                                },);
                             },
-                          ),
+                            ),
+                            new Expanded(
+
+                              child: new Text('${q.text}',
+                                  style: Theme.of(context).textTheme.body1, maxLines: 3),
+                            ),
+
+                            new IconButton(
+                              icon: new Icon(Icons.keyboard_arrow_right, size: iconSize,
+                                  color: Colors.blue),
+                              onPressed: () {
+                                showDialog(context: context, builder: (BuildContext context){
+                                  return new MyDialog(q);
+                                },);
+                              },
+                            ),
+
+                          ],
                         )
+                      ),
                     );
                   }
                 }
                 return new Column(
-                  /// Receives a list of tiles constructed above in the future builder.
-                  ///
                     children: lt
                 );
                 //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
 
-
               } else if (snapshot.hasError) {
-
 
                 return new Text("${snapshot.error}");
               }
@@ -180,7 +174,7 @@ class _TopicPageState extends State<TopicPage> {
               return new Center(child: new CircularProgressIndicator());
             },
           ),
-          new Padding(padding: EdgeInsets.only(bottom: 40.0)),
+          new Padding(padding: EdgeInsets.only(bottom: size.height * 0.05)),
         ],
       ),
     );
@@ -229,14 +223,21 @@ Future<List<Age>> fetchAges() async {
 
 class MyDialog extends Dialog {
   final Question question;
+  Size size;
 
   MyDialog(this.question) : super();
 
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    final double hPadding = size.width * 0.1;
+
+
+
     return new AnimatedPadding(
 
-      padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
+      padding: MediaQuery.of(context).viewInsets +
+          EdgeInsets.symmetric(horizontal: hPadding, vertical: size.height * 0.03),
       duration: insetAnimationDuration,
       curve: insetAnimationCurve,
 
@@ -249,7 +250,7 @@ class MyDialog extends Dialog {
         context: context,
         child: new Center(
           child: new ConstrainedBox(
-            constraints: const BoxConstraints(minWidth: 280.0, maxHeight: 570.0),
+            constraints: BoxConstraints(minWidth: size.width * 0.8, maxHeight: size.height * 0.8),
               /// This code is from Dialog Flutter Class, the Material Widget was substituted
               /// by the container in the method: getContainer.
             child: getContainer(context)
@@ -262,13 +263,13 @@ class MyDialog extends Dialog {
 
   Widget getContainer(BuildContext context) {
     return new Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.05),
 
         //color: Colors.white30,
         decoration: new BoxDecoration(
 
           color: Colors.white,
-          borderRadius: new BorderRadius.circular(20.0),
+          borderRadius: new BorderRadius.circular(10.0),
           border: new Border.all(
             width: 2.0,
             color: Colors.white,
@@ -276,24 +277,28 @@ class MyDialog extends Dialog {
         ),
 
         child: new Column(children: <Widget>[
-          new TextContainer('${question.text}', color: Colors.blue,
-              fontSize: 18.0, align: TextAlign.center, fontW: FontWeight.w700, bottom: 20.0, top: 30.0),
+          new Text('${question.text}', style: Theme.of(context).textTheme.title,
+            textAlign: TextAlign.center,),
+          new Padding(padding: EdgeInsets.only(top: size.height * 0.05)),
           new FlutterLogo(
             colors: Colors.blue,
-            size: 200.0,
+            size: 150.0,
           ),
-
-          new TextContainer(T(context, k: 'lorem_lbl1'),
-            fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
+          new Padding(padding: EdgeInsets.only(top: size.height * 0.05)),
+          new Text(T(context, k: 'lorem_lbl1'), style: Theme.of(context).textTheme.subhead,
+            textAlign: TextAlign.center,),
+          new Padding(padding: EdgeInsets.only(top: size.height * 0.1)),
 
           new Container(
-            width: 250.0,
+            //width: 250.0,
             child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                new MyButton(text: 'SKIP', type: 'outline', width: 80.0, height: 50.0,
+                new MyButton(text: 'SKIP', type: 'outline',
+                width: size.width * 0.2, height: size.height * 0.075,
                     widget: new StoryPage(hint: question.text)),
-                new MyButton(text: 'WRITE', type: 'raised', width: 80.0, height: 50.0,
+                new MyButton(text: 'WRITE', type: 'raised',
+                    width: size.width * 0.2, height: size.height * 0.075,
                     widget: new StoryPage(hint: question.text)),
               ],
             ),

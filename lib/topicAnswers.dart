@@ -24,123 +24,126 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
   double sidesWidth;
   double topicWidth;
   double actionWidth;
-  Size screenSize;
+  Size size;
   double circleWidth;
   double topicPadding;
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.of(context).size;
+    size = MediaQuery.of(context).size;
     /// These have to sum 1.0
-    sidesWidth = screenSize.width * 0.04;
-    topicWidth = screenSize.width * 0.48;
-    actionWidth = screenSize.width * 0.34;
+    sidesWidth = size.width * 0.04;
+    topicWidth = size.width * 0.48;
+    actionWidth = size.width * 0.34;
     ///
-    circleWidth = screenSize.width * 0.15;
-    topicPadding = screenSize.width * 0.02;
+    circleWidth = size.width * 0.15;
+    topicPadding = size.width * 0.02;
 
-    final double iconSize = screenSize.width * 0.045;
-    final double fontSize = screenSize.width * 0.035;
+    final double iconSize = size.width * 0.045;
 
 
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar('Topic: ' + widget.topic.topic.toUpperCase(),),
+      appBar: new MyAppBar(widget.topic.topic.toUpperCase(), context: context,),
       bottomNavigationBar: new MyBottomNavBar(),
       body: new Stack(children: <Widget>[
         new Container(child: new Column(children: <Widget>[
           new Container(
+            alignment: Alignment.center,
             constraints: new BoxConstraints.expand(
-              height: screenSize.height * 0.25,
-              width: screenSize.width * 1.0,
+              height: size.height * 0.25,
             ),
             decoration: new BoxDecoration(
               color: Colors.blue.shade200,
             ),
-            child: new TextContainer(T(context, k: 'main_title1'),
-                fontSize: 36.0, bottom: screenSize.height * 0.2 * 0.1, fontW: FontWeight.w700,
-                color: Colors.white),
+            child: new Text(T(context, k: 'main_title1'),
+              style: Theme.of(context).textTheme.display2),
           ),
           //new Container()
         ],),),
 
+        new Container(
+          /// I chose margin because I want to see the stack background.
+          margin: EdgeInsets.symmetric(horizontal: size.width * 0.05) +
+              EdgeInsets.only(top: size.height * 0.2),
+          child: new ListView(
+            children: <Widget>[
+              new Container(
+                child: new FutureBuilder<List<Question>>(
+                  future: fetchQuestions(topic: widget.topic.topic.toLowerCase()),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
 
-      new ListView(
-        padding: EdgeInsets.only(top: 130.0),
-          children: <Widget>[
-            new Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.0),
-
-              child: new FutureBuilder<List<Question>>(
-                future: fetchQuestions(topic: widget.topic.topic.toLowerCase()),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-
-                    final List<Widget> lt = new List<Widget>();
-                    for(var q in snapshot.data) {
-                      if(!q.isSkipped()) {
-                        lt.add(
-                          new Container(
-                            margin: EdgeInsets.symmetric(vertical: 8.0),
-                            padding: EdgeInsets.symmetric(horizontal: 20.0),
-                            decoration: new BoxDecoration(
-                              color: Colors.blue.shade50,
-                            ),
-                            child: new Column(children: <Widget>[
-                              new TextContainer('Question:', color: Colors.blue,
-                                fontSize: 16.0, contAlign: Alignment.centerLeft,
-                              fontW: FontWeight.w700, top: 10.0,),
-
-                              new TextContainer('${q.text}', color: Colors.blue,
-                                fontSize: 24.0, contAlign: Alignment.centerLeft,
-                                fontW: FontWeight.w700, top: 15.0, align: TextAlign.left,),
-
-                              new TextContainer('${q.answer}', color: Colors.blue,
-                                fontSize: 16.0, contAlign: Alignment.centerLeft, top: 10.0, bottom: 10.0,),
-
-                              new Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      final List<Widget> lt = new List<Widget>();
+                      for(var q in snapshot.data) {
+                        if(!q.isSkipped()) {
+                          lt.add(
+                            new Container(
+                              margin: EdgeInsets.symmetric(vertical: size.height * 0.01),
+                              padding: EdgeInsets.symmetric(horizontal: size.width * 0.05,
+                                  vertical: size.height * 0.03),
+                              decoration: new BoxDecoration(
+                                color: Colors.blue.shade50,
+                              ),
+                              child: new Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                new MyButton(text: 'MORE', type:'outline', width: 80.0, height: 40.0,
-                                widget: new StoryReaderPage(hint: q.text),),
+                                new Text('QUESTIONS:', style: Theme.of(context).textTheme.caption,),
+                                new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
+                                new Text('${q.text}', style: Theme.of(context).textTheme.headline,),
+                                new Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
+                                new Text('${q.answer}', style: Theme.of(context).textTheme.body1,),
+                                new Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
 
-                                new MyCircleButton(circleSize: 50.0, borderColor: Colors.blue.shade100,
-                                  icon: new Icon(Icons.edit, size: iconSize, color: Colors.blue),
-                                  widgetNav: new StoryPage(hint: q.text),
-                                ),
-                                new MyCircleButton(circleSize: 50.0, borderColor: Colors.blue.shade100,
-                                  icon: new Icon(Icons.input, size: iconSize, color: Colors.blue),),
-
-                              ],),
-
-                              new Padding(padding: EdgeInsets.only(top: 20.0))
-                            ],)
-
-                          )
-                        );
+                                new Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    new MyButton(text: 'MORE', type:'outline',
+                                      width: size.width * 0.25, height: size.height * 0.075,
+                                      widget: new StoryReaderPage(question: q),),
+                                    new Container(
+                                      width: size.width * 0.3,
+                                      child: new Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          new MyCircleButton(circleSize: size.height * 0.08, borderColor: Colors.blue.shade100,
+                                            icon: new Icon(Icons.edit, size: iconSize, color: Colors.blue),
+                                            widgetNav: new StoryPage(hint: q.text),
+                                          ),
+                                          new MyCircleButton(circleSize: size.height * 0.08, borderColor: Colors.blue.shade100,
+                                            icon: new Icon(Icons.input, size: iconSize, color: Colors.blue),),
+                                        ],
+                                      ),
+                                    ),
+                                  ],),
+                              ],)
+                            )
+                          );
+                        }
                       }
+                      return new Column(
+                        /// Receives a list of tiles constructed above in the future builder.
+                        ///
+                          children: lt
+                      );
+                      //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
+
+
+                    } else if (snapshot.hasError) {
+
+
+                      return new Text("${snapshot.error}");
                     }
-                    return new Column(
-                      /// Receives a list of tiles constructed above in the future builder.
-                      ///
-                        children: lt
-                    );
-                    //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
 
-
-                  } else if (snapshot.hasError) {
-
-
-                    return new Text("${snapshot.error}");
-                  }
-
-                  // By default, show a loading spinner
-                  return new Center(child: new CircularProgressIndicator());
-                },
+                    // By default, show a loading spinner
+                    return new Center(child: new CircularProgressIndicator());
+                  },
+                ),
               ),
-            ),
-          ]),
+            ]),
+          ),
+
       ],)
     );
   }

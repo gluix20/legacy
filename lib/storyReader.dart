@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'weed.dart';
 import 'dart:async';
 import 'translations.dart';
+import 'application.dart';
 import 'topics.dart';
 
 class StoryReaderPage extends StatefulWidget {
-  final String hint;
-  StoryReaderPage({Key key, this.hint}) : super(key: key);
+  final Question question;
+  StoryReaderPage({Key key, this.question}) : super(key: key);
 
   @override
   _StoryReaderPageState createState() => new _StoryReaderPageState();
@@ -46,12 +47,17 @@ class _StoryReaderPageState extends State<StoryReaderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return new Scaffold(
       key: scaffoldKey,
-      appBar: new MyAppBar('POST',
+      appBar: new MyAppBar('POST', context: context,
         actions: <Widget>[
-          new GestureDetector(child: new TextContainer('Share', contAlign: Alignment.center,
-            color: Colors.blue, fontW: FontWeight.w700,),
+          new GestureDetector(
+            child: new Container(
+              alignment: Alignment.center,
+              child: new Text('Share', style: Theme.of(context).textTheme.caption,),
+            ),
             onTap: () {
               FocusScope.of(context).requestFocus(new FocusNode());
               focusSave();
@@ -69,43 +75,34 @@ class _StoryReaderPageState extends State<StoryReaderPage> {
       ),
       bottomNavigationBar: new MyBottomNavBar(),
       body: new Container(
-        padding: new EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.1) +
+          EdgeInsets.only(top: size.width * 0.05),
         child: new SingleChildScrollView(
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new TextContainer(T(context, k: 'excepteur_lbl1'),
-                fontSize: 44.0, top: 10.0, bottom: 40.0, contAlign: Alignment.centerLeft,
-                align: TextAlign.left,
-                fontW: FontWeight.w700, color: Colors.blue,),
+              new Text(T(context, k: 'excepteur_lbl1'), style: Theme.of(context).textTheme.display3),
+              new Padding(padding: EdgeInsets.only(bottom: size.height * 0.05)),
 
               new Row(children: <Widget>[
                 new Container(
                   alignment: Alignment.center,
                   child: new Icon(Icons.watch_later, color: Colors.blue, size: 20.0,),
                 ),
-                new Padding(padding: EdgeInsets.only(left: 10.0)),
+                new Padding(padding: EdgeInsets.only(left: size.width * 0.02)),
                 new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                  new TextContainer(T(context, t: 'By Nate Geller'),
-                    fontSize: 16.0, top: 0.0, bottom: 0.0, contAlign: Alignment.centerLeft,
-                    align: TextAlign.left,
-                    fontW: FontWeight.w700, color: Colors.blue,),
-                  new TextContainer(T(context, t: 'June 2, 2017'),
-                    fontSize: 15.0, top: 0.0, bottom: 0.0, contAlign: Alignment.centerLeft,
-                    align: TextAlign.left,
-                    fontW: FontWeight.normal, color: Colors.blue,),
+                    new Text(T(context, t: 'By Nate Geller'), style: Theme.of(context).textTheme.body2),
+                    new Text(T(context, t: 'June 2, 2017'), style: Theme.of(context).textTheme.body1),
                 ],),
 
               ],),
-              new Padding(padding: EdgeInsets.only(bottom: 40.0)),
-
 
               new Container(
-                child: new TextContainer(widget.hint, color: Colors.blue,
-                contAlign: Alignment.centerLeft, align: TextAlign.left,),
-                margin: new EdgeInsets.only(top: 0.0, bottom: 40.0),
+                padding: new EdgeInsets.symmetric(vertical: size.height * 0.05),
+                child: new Text(widget.question.answer, style: Theme.of(context).textTheme.body1),
+
               ),
             ],
           ),

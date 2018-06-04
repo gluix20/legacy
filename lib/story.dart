@@ -46,12 +46,18 @@ class _StoryPageState extends State<StoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return new Scaffold(
       key: scaffoldKey,
-      appBar: new MyAppBar('WRITING',
+      appBar: new MyAppBar('WRITING', context: context,
         actions: <Widget>[
-          new GestureDetector(child: new TextContainer('Save', contAlign: Alignment.center,
-          color: Colors.blue, fontW: FontWeight.w700,),
+          new GestureDetector(
+
+            child: new Container(
+              alignment: Alignment.center,
+              child: new Text('Save', style: Theme.of(context).textTheme.caption,),
+            ),
             onTap: () {
               FocusScope.of(context).requestFocus(new FocusNode());
               focusSave();
@@ -68,18 +74,19 @@ class _StoryPageState extends State<StoryPage> {
         ),
       ),
       body: new Container(
-        padding: new EdgeInsets.all(20.0),
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05) +
+        EdgeInsets.only(top: size.height * 0.05),
         child: new SingleChildScrollView(
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new TextContainer(T(context, k: 'excepteur_lbl1'),
-                fontSize: 24.0, top: 0.0, bottom: 0.0, contAlign: Alignment.centerLeft,
-                fontW: FontWeight.normal, color: Colors.blue,),
+              new Text(T(context, k: 'excepteur_lbl1'),
+                style: Theme.of(context).textTheme.headline.copyWith(fontWeight: FontWeight.normal),),
+              new Padding(padding: EdgeInsets.only(top: size.height * 0.01)),
+              new Text(T(context, t: 'By Nate Geller'),
+                style: Theme.of(context).textTheme.caption,),
+              new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
 
-              new TextContainer(T(context, t: 'By Nate Geller'),
-                fontSize: 16.0, top: 0.0, bottom: 30.0, contAlign: Alignment.centerLeft,
-              fontW: FontWeight.w700, color: Colors.blue,),
 
               new Container(
                 child: new TextField(
@@ -92,13 +99,9 @@ class _StoryPageState extends State<StoryPage> {
                     border: InputBorder.none,
                     hintText: widget.hint,
                   ),
-                  style: new TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: 'Montserrat',
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.body1,
                 ),
-                margin: new EdgeInsets.only(top: 0.0, bottom: 40.0),
+                margin: EdgeInsets.only(bottom: size.height * 0.05),
               ),
             ],
           ),

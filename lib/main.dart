@@ -57,16 +57,25 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'Montserrat',
 
         textTheme: new TextTheme(
-          title: new TextStyle(color: Colors.blue,
-            fontSize: 20.0, fontWeight: FontWeight.w700),
           body1: new TextStyle(color: Colors.blue,
               fontSize: 16.0, fontWeight: FontWeight.normal),
-          display1: new TextStyle(color: Colors.blue,
-              fontSize: 24.0, fontWeight: FontWeight.normal),
+          body2: new TextStyle(color: Colors.blue,
+              fontSize: 16.0, fontWeight: FontWeight.w700),
+          title: new TextStyle(color: Colors.blue,
+            fontSize: 20.0, fontWeight: FontWeight.w700),
           headline:  new TextStyle(color: Colors.blue,
               fontSize: 24.0, fontWeight: FontWeight.w700),
           subhead: new TextStyle(color: Colors.blue,
               fontSize: 18.0, fontWeight: FontWeight.normal),
+
+          display1: new TextStyle(color: Colors.blue,
+              fontSize: 24.0, fontWeight: FontWeight.normal),
+          display2: new TextStyle(color: Colors.blue,
+              fontSize: 36.0, fontWeight: FontWeight.w700),
+          display3: new TextStyle(color: Colors.blue,
+              fontSize: 44.0, fontWeight: FontWeight.normal),
+
+
           button: new TextStyle(color: Colors.blue,
               fontWeight: FontWeight.w700),
           caption: new TextStyle(color: Colors.blue,
