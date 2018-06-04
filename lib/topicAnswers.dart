@@ -74,7 +74,6 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
                   future: fetchQuestions(topic: widget.topic.topic.toLowerCase()),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-
                       final List<Widget> lt = new List<Widget>();
                       for(var q in snapshot.data) {
                         if(!q.isSkipped()) {
@@ -89,29 +88,31 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
                               child: new Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                new Text('QUESTIONS:', style: Theme.of(context).textTheme.caption,),
+                                new Text('QUESTION', style: Theme.of(context).textTheme.caption,),
                                 new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
                                 new Text('${q.text}', style: Theme.of(context).textTheme.headline,),
                                 new Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
-                                new Text('${q.answer}', style: Theme.of(context).textTheme.body1,),
+                                new Text('${q.answer}'.length >= 200 ? ('${q.answer}'.substring(0,200)+' ...') :
+                                ('${q.answer} ...'),
+                                  style: Theme.of(context).textTheme.body1,),
                                 new Padding(padding: EdgeInsets.only(top: size.height * 0.03)),
 
                                 new Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     new MyButton(text: 'MORE', type:'outline',
-                                      width: size.width * 0.25, height: size.height * 0.075,
+                                      width: size.width * 0.2, height: size.height * 0.075,
                                       widget: new StoryReaderPage(question: q),),
                                     new Container(
-                                      width: size.width * 0.3,
+                                      width: size.width * 0.32,
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          new MyCircleButton(circleSize: size.height * 0.08, borderColor: Colors.blue.shade100,
+                                          new MyCircleButton(circleSize: size.width * 0.14, borderColor: Colors.blue.shade100,
                                             icon: new Icon(Icons.edit, size: iconSize, color: Colors.blue),
                                             widgetNav: new StoryPage(hint: q.text),
                                           ),
-                                          new MyCircleButton(circleSize: size.height * 0.08, borderColor: Colors.blue.shade100,
+                                          new MyCircleButton(circleSize: size.width * 0.14, borderColor: Colors.blue.shade100,
                                             icon: new Icon(Icons.input, size: iconSize, color: Colors.blue),),
                                         ],
                                       ),

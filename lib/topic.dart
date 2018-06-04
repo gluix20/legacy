@@ -230,14 +230,14 @@ class MyDialog extends Dialog {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    final double hPadding = size.width * 0.1;
+    final double hPadding = size.width * 0.05;
 
 
 
     return new AnimatedPadding(
 
       padding: MediaQuery.of(context).viewInsets +
-          EdgeInsets.symmetric(horizontal: hPadding, vertical: size.height * 0.03),
+          EdgeInsets.symmetric(horizontal: hPadding),
       duration: insetAnimationDuration,
       curve: insetAnimationCurve,
 
@@ -250,7 +250,7 @@ class MyDialog extends Dialog {
         context: context,
         child: new Center(
           child: new ConstrainedBox(
-            constraints: BoxConstraints(minWidth: size.width * 0.8, maxHeight: size.height * 0.8),
+            constraints: BoxConstraints(minWidth: size.width, maxHeight: size.height * 0.75),
               /// This code is from Dialog Flutter Class, the Material Widget was substituted
               /// by the container in the method: getContainer.
             child: getContainer(context)
@@ -267,7 +267,6 @@ class MyDialog extends Dialog {
 
         //color: Colors.white30,
         decoration: new BoxDecoration(
-
           color: Colors.white,
           borderRadius: new BorderRadius.circular(10.0),
           border: new Border.all(
@@ -277,17 +276,20 @@ class MyDialog extends Dialog {
         ),
 
         child: new Column(children: <Widget>[
+
           new Text('${question.text}', style: Theme.of(context).textTheme.title,
             textAlign: TextAlign.center,),
-          new Padding(padding: EdgeInsets.only(top: size.height * 0.05)),
+          new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
+
           new FlutterLogo(
             colors: Colors.blue,
             size: 150.0,
           ),
-          new Padding(padding: EdgeInsets.only(top: size.height * 0.05)),
+          new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
+
           new Text(T(context, k: 'lorem_lbl1'), style: Theme.of(context).textTheme.subhead,
             textAlign: TextAlign.center,),
-          new Padding(padding: EdgeInsets.only(top: size.height * 0.1)),
+          new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
 
           new Container(
             //width: 250.0,
@@ -302,7 +304,6 @@ class MyDialog extends Dialog {
                     widget: new StoryPage(hint: question.text)),
               ],
             ),
-            //padding: EdgeInsets.only(top: 70.0, bottom: 0.0),
           ),
         ],)
     );

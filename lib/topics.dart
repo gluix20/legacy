@@ -216,7 +216,7 @@ Future<List<Topic>> fetchTopics() async {
   for (var q in responseJson['topics']) {
     Topic newT = new Topic(
       id: q['id'],
-      topic: q['topic'],
+      topic: q['text'],
       skipped: q['skipped'],
       enabled: q['id'] == 1 ? 1 : 0,
     );
