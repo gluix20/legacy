@@ -33,7 +33,6 @@
      "age": "childhood" , "subcategory": "parents" }
 
   ],
-  "profile": { "name": "typicode" },
   "topics": [
     { "id": 1, "text": "family", "skipped": 0 },
     { "id": 2, "text": "education", "skipped": 0 },
