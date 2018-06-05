@@ -45,7 +45,12 @@ class _TopicPageState extends State<TopicPage> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar(widget.topic.topic.toUpperCase(), context: context, ),
+      appBar: new MyAppBar(widget.topic.topic.toUpperCase(), context: context,
+        leading: new IconButton(icon: new Icon(Icons.arrow_back,
+          color: Theme.of(context).textTheme.title.color,),
+            onPressed: () => Navigator.pop(context)
+        ),
+      ),
       body: new ListView(
         padding: EdgeInsets.symmetric(horizontal: hPadding),
 
@@ -232,8 +237,6 @@ class MyDialog extends Dialog {
     size = MediaQuery.of(context).size;
     final double hPadding = size.width * 0.05;
 
-
-
     return new AnimatedPadding(
 
       padding: MediaQuery.of(context).viewInsets +
@@ -260,52 +263,49 @@ class MyDialog extends Dialog {
     );
   }
 
-
   Widget getContainer(BuildContext context) {
     return new Container(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.05),
-
-        //color: Colors.white30,
-        decoration: new BoxDecoration(
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.05),
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        borderRadius: new BorderRadius.circular(10.0),
+        border: new Border.all(
+          width: 2.0,
           color: Colors.white,
-          borderRadius: new BorderRadius.circular(10.0),
-          border: new Border.all(
-            width: 2.0,
-            color: Colors.white,
+        ),
+      ),
+
+      child: new Column(children: <Widget>[
+
+        new Text('${question.text}', style: Theme.of(context).textTheme.title,
+          textAlign: TextAlign.center,),
+        new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
+
+        new FlutterLogo(
+          colors: Colors.blue,
+          size: 150.0,
+        ),
+        new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
+
+        new Text(T(context, k: 'lorem_lbl1'), style: Theme.of(context).textTheme.subhead,
+          textAlign: TextAlign.center,),
+        new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
+
+        new Container(
+          //width: 250.0,
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              new MyButton(text: 'SKIP', type: 'outline',
+              width: size.width * 0.2,
+                  widget: new StoryPage(hint: question.text)),
+              new MyButton(text: 'WRITE', type: 'raised',
+                  width: size.width * 0.2,
+                  widget: new StoryPage(hint: question.text)),
+            ],
           ),
         ),
-
-        child: new Column(children: <Widget>[
-
-          new Text('${question.text}', style: Theme.of(context).textTheme.title,
-            textAlign: TextAlign.center,),
-          new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
-
-          new FlutterLogo(
-            colors: Colors.blue,
-            size: 150.0,
-          ),
-          new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
-
-          new Text(T(context, k: 'lorem_lbl1'), style: Theme.of(context).textTheme.subhead,
-            textAlign: TextAlign.center,),
-          new Padding(padding: EdgeInsets.only(top: size.height * 0.04)),
-
-          new Container(
-            //width: 250.0,
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                new MyButton(text: 'SKIP', type: 'outline',
-                width: size.width * 0.2, height: size.height * 0.075,
-                    widget: new StoryPage(hint: question.text)),
-                new MyButton(text: 'WRITE', type: 'raised',
-                    width: size.width * 0.2, height: size.height * 0.075,
-                    widget: new StoryPage(hint: question.text)),
-              ],
-            ),
-          ),
-        ],)
+      ],)
     );
   }
 }

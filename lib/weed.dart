@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'translations.dart';
 import 'topics.dart';
-import 'topic.dart';
+import 'topicQuestions.dart';
 import 'topicAnswers.dart';
 
 
@@ -50,19 +50,22 @@ class MyAppBar extends AppBar {
   final List<Widget> actions;
   final Widget leading;
   final BuildContext context;
+  final Color color;
 
   MyAppBar(this.text, {Key key, @required this.context,
-    this.scaffoldKey, this.actions, this.leading}) :
+    this.scaffoldKey, this.actions, this.leading, this.color}) :
 
         super(key: key,
         elevation: 0.0,
-        backgroundColor: Colors.white30,
+        backgroundColor: color ?? Colors.white30,
         title: new Text(text, style: Theme.of(context).textTheme.title,),
         centerTitle: true,
 
+
         actions: actions ?? <Widget>[
           new IconButton(
-            icon: new Icon(Icons.more_vert, color: Theme.of(context).textTheme.title.color,),
+            icon: new Icon(Icons.more_vert,
+          color: Theme.of(context).textTheme.title.color,),
             onPressed: () => print('Hola'),
           ),
         ],
@@ -99,6 +102,9 @@ class MyInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double height = this.height ?? size.height * 0.065;
+
     /*
     new TextFormField(
       decoration: new InputDecoration(
@@ -206,19 +212,15 @@ class MyTitle extends StatelessWidget {
 class MyButton extends StatelessWidget {
 
   final String text;
-  final double fontSize;
-  final double top;
-  final double bottom;
   final TextAlign align;
   final FontWeight fontW;
   final Color color;
   final String type;
+  final double height;
   final double width;
   final Widget widget;
-  final double height;
 
-  MyButton({@required this.text, this.fontSize, this.top, this.bottom,
-    this.align, this.fontW, this.color,
+  MyButton({@required this.text, this.align, this.fontW, this.color,
     @required this.type, @required this.width, this.widget, @required this.height}) : super();
 
   void action(BuildContext context) {
@@ -228,6 +230,9 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double height = this.height ?? size.height * 0.065;
+
     final borderShape = new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0));
 
     if(type == 'outline') {
@@ -248,7 +253,7 @@ class MyButton extends StatelessWidget {
         shape: borderShape,
         elevation: 0.0,
         color: Colors.blue,
-        disabledColor: Colors.white,
+        //disabledColor: Colors.white,
       );
 
     } else if(type == 'outline.icon') {
@@ -320,17 +325,34 @@ class MyBottomNavBar extends StatefulWidget {
 class _MyBottomNavBarState extends State<MyBottomNavBar> {
   @override
   Widget build(BuildContext context) {
-    return new BottomNavigationBar(
-      items: [
-        new BottomNavigationBarItem(icon: new Icon(Icons.menu, ), title: new Text('')),
-        new BottomNavigationBarItem(icon: new Icon(Icons.edit, ), title: new Text('')),
-        new BottomNavigationBarItem(icon: new Icon(Icons.person, ), title: new Text(''))
-      ],
-      //fixedColor: Colors.blue,
-      //type: BottomNavigationBarType.fixed,
 
+    int index= 0;
+
+    return new Theme(
+      data: Theme.of(context).copyWith(
+        // sets the background color of the `BottomNavigationBar`
+          canvasColor: Colors.blue,
+          // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+          primaryColor: Colors.white,
+          textTheme: Theme
+              .of(context)
+              .textTheme
+              .copyWith(caption: new TextStyle(color: Colors.blue.shade200))),
+
+
+      child: new BottomNavigationBar(
+        items: [
+          new BottomNavigationBarItem(icon: new Icon(Icons.menu, ), title: new Text('')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.edit, ), title: new Text('')),
+          new BottomNavigationBarItem(icon: new Icon(Icons.person, ), title: new Text('')),
+        ],
+        currentIndex: index,
+        onTap: (int i){ setState((){index = i;});},
+        type: BottomNavigationBarType.fixed,
+      ),
     );
   }
+
 }
 
 

@@ -45,7 +45,13 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar(widget.topic.topic.toUpperCase(), context: context,),
+      appBar: new MyAppBar(widget.topic.topic.toUpperCase(),
+          context: context, color: Colors.blue.shade200,
+        leading: new IconButton(icon: new Icon(Icons.arrow_back,
+          color: Theme.of(context).textTheme.title.color,),
+            onPressed: () => Navigator.pop(context)
+        ),
+      ),
       bottomNavigationBar: new MyBottomNavBar(),
       body: new Stack(children: <Widget>[
         new Container(child: new Column(children: <Widget>[
@@ -101,7 +107,7 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     new MyButton(text: 'MORE', type:'outline',
-                                      width: size.width * 0.2, height: size.height * 0.075,
+                                      width: size.width * 0.2,
                                       widget: new StoryReaderPage(question: q),),
                                     new Container(
                                       width: size.width * 0.32,
@@ -126,7 +132,7 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
                       return new Column(
                         /// Receives a list of tiles constructed above in the future builder.
                         ///
-                          children: lt
+                        children: lt
                       );
                       //return new Text(snapshot.data.name+' '+snapshot.data.lastName);
 
@@ -187,81 +193,4 @@ Future<List<Age>> fetchAges() async {
     ages.add(newT);
   }
   return ages;
-}
-
-class MyDialog extends Dialog {
-  final Question question;
-
-  MyDialog(this.question) : super();
-
-  @override
-  Widget build(BuildContext context) {
-    return new AnimatedPadding(
-
-      padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
-      duration: insetAnimationDuration,
-      curve: insetAnimationCurve,
-
-      child: new MediaQuery.removeViewInsets(
-
-        removeLeft: true,
-        removeTop: true,
-        removeRight: true,
-        removeBottom: true,
-        context: context,
-        child: new Center(
-          child: new ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 280.0, maxHeight: 570.0),
-              /// This code is from Dialog Flutter Class, the Material Widget was substituted
-              /// by the container in the method: getContainer.
-              child: getContainer(context)
-          ),
-        ),
-      ),
-    );
-  }
-
-
-  Widget getContainer(BuildContext context) {
-    return new Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-
-        //color: Colors.white30,
-        decoration: new BoxDecoration(
-
-          color: Colors.white,
-          borderRadius: new BorderRadius.circular(20.0),
-          border: new Border.all(
-            width: 2.0,
-            color: Colors.white,
-          ),
-        ),
-
-        child: new Column(children: <Widget>[
-          new TextContainer('${question.text}', color: Colors.blue,
-              fontSize: 18.0, align: TextAlign.center, fontW: FontWeight.w700, bottom: 20.0, top: 30.0),
-          new FlutterLogo(
-            colors: Colors.blue,
-            size: 200.0,
-          ),
-
-          new TextContainer(T(context, k: 'lorem_lbl1'),
-            fontSize: 18.0, color: Colors.blue, top: 30.0, bottom: 30.0,),
-
-          new Container(
-            width: 250.0,
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                new MyButton(text: 'SKIP', type: 'outline', width: 80.0, height: 50.0,
-                    widget: new StoryPage(hint: question.text)),
-                new MyButton(text: 'WRITE', type: 'raised', width: 80.0, height: 50.0,
-                    widget: new StoryPage(hint: question.text)),
-              ],
-            ),
-            //padding: EdgeInsets.only(top: 70.0, bottom: 0.0),
-          ),
-        ],)
-    );
-  }
 }

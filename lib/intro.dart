@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'register.dart';
-//import 'bottom.dart';
+import 'bottom.dart';
 import 'weed.dart';
 
 class IntroPage extends StatelessWidget {
@@ -104,9 +104,6 @@ class _CircleIndicatorState extends State<CircleIndicator> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    //print('${size.height*0.075}');
-
-
     widget.pageController.addListener(() {
       // print('Intro pageController changing: ${widget.pageController.page}');
       if (position != widget.pageController.page?.round() ?? 0) {
@@ -133,11 +130,11 @@ class _CircleIndicatorState extends State<CircleIndicator> {
 
                 children: <Widget>[
                   new MyButton(text: 'SKIP', type: 'outline',
-                      width: size.width * 0.3, height: size.height * 0.075,
-                    //widget: new BottomNavigationDemo(),
+                      width: size.width * 0.3,
+                      widget: new BottomNavigationDemo(),
                   ),
                   new MyButton(text: 'NEXT', type: 'raised',
-                    width: size.width * 0.3, height: size.height * 0.075,
+                    width: size.width * 0.3,
                     widget: new RegisterPage(),),
 
                 ],

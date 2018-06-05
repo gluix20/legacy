@@ -54,6 +54,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         /// This one manage the circle and progress bar color.
         accentColor: Colors.blue,
+        primaryColor: Colors.blue,
         fontFamily: 'Montserrat',
 
         textTheme: new TextTheme(

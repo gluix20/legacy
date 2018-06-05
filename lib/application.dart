@@ -122,9 +122,7 @@ Future<List<Question>> fetchQuestions({String topic, String age}) async {
         skipped: q['skipped'],
       );
       questions.add(newQ);
-      print(newQ.isAnswered());
     }
-
   }
   return questions;
 }

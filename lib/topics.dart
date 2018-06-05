@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'translations.dart';
 import 'weed.dart';
-import 'topic.dart';
+import 'topicQuestions.dart';
 import 'topicAnswers.dart';
 
 
@@ -40,7 +40,12 @@ class TopicsPageState extends State<TopicsPage> {
         key: _scaffoldKey,
         drawer: new Drawer(),
         appBar: new MyAppBar(T(context, t: 'HOME'), context: context,
-          scaffoldKey: _scaffoldKey,),
+          scaffoldKey: _scaffoldKey,
+          actions: [new IconButton(icon: new Icon(Icons.more_vert,
+            color: Theme.of(context).textTheme.title.color,),
+              onPressed: () => null
+          ),]
+        ),
         bottomNavigationBar: new MyBottomNavBar(),
         body: new ListView(
           children: <Widget>[
@@ -93,7 +98,6 @@ class TopicsPageState extends State<TopicsPage> {
   Widget getRow(Topic topic, Size size) {
     final double iconSize = size.width * 0.065;
     final double fontSize = size.width * 0.035;
-    print(fontSize);
 
     return new Container(
 

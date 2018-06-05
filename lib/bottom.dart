@@ -67,8 +67,6 @@ class NavigationIconView {
   }
 }
 
-
-
 class CustomIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
