@@ -116,7 +116,7 @@ class _TopicStoriesPageState extends State<TopicStoriesPage> {
                                         children: <Widget>[
                                           new MyCircleButton(circleSize: size.width * 0.14, borderColor: Colors.blue.shade100,
                                             icon: new Icon(Icons.edit, size: iconSize, color: Colors.blue),
-                                            widgetNav: new StoryPage(hint: q.text),
+                                            widgetNav: new StoryPage(question: q),
                                           ),
                                           new MyCircleButton(circleSize: size.width * 0.14, borderColor: Colors.blue.shade100,
                                             icon: new Icon(Icons.input, size: iconSize, color: Colors.blue),),

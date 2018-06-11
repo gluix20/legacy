@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'translations.dart';
 import 'topics.dart';
-import 'topicQuestions.dart';
-import 'topicAnswers.dart';
 
 
 
@@ -91,14 +87,14 @@ class MyInput extends StatelessWidget {
   final FontWeight fontW;
   final Color color;
   final double height;
+  final TextEditingController controller;
+  final FocusNode focusNode;
 
   MyInput({Key key, this.label, this.hint, this.obscureText, this.menu,
     this.keyText, this.fontSize,
-      this.align, this.fontW, this.color, @required this.height}): super(key: key);
-
-  String getS(BuildContext context){
-    return keyText == null? label : Translations.of(context).text(keyText);
-  }
+    this.align, this.fontW, this.color,
+    this.height, this.controller, this.focusNode}):
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -134,13 +130,13 @@ class MyInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        new TextContainer(label, color: Colors.blue,
-          align: TextAlign.left, fontSize: 12.0, contAlign: Alignment.bottomLeft,
-          bottom: 6.0,
+        new Container(
+          padding: EdgeInsets.only(bottom: size.height * 0.005),
+          child: new Text(label, style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12.0),),
         ),
 
         new Container(
-          margin: EdgeInsets.only(bottom: 10.0),
+          margin: EdgeInsets.only(bottom: size.height * 0.015),
           alignment: Alignment.center,
           height: height,
           decoration: new BoxDecoration(
@@ -151,11 +147,14 @@ class MyInput extends StatelessWidget {
             borderRadius: new BorderRadius.circular(0.0),
           ),
           child: new TextField(
+            maxLines: 1,
+            controller: controller ?? new TextEditingController(),
+            focusNode: focusNode ?? new FocusNode(),
             obscureText: obscureText ?? false,
             decoration: new InputDecoration(
               hintText: hint,
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(left: 25.0, right: 10.0),
+              contentPadding: EdgeInsets.only(left: size.width * 0.07, right: size.width * 0.03),
               suffixIcon: menu == null ? null :
               new Icon(Icons.keyboard_arrow_down, size: 28.0, color: Colors.blue,),
             ),
@@ -219,11 +218,15 @@ class MyButton extends StatelessWidget {
   final double height;
   final double width;
   final Widget widget;
+  final Function func;
 
   MyButton({@required this.text, this.align, this.fontW, this.color,
-    @required this.type, @required this.width, this.widget, @required this.height}) : super();
+    @required this.type, @required this.width, this.widget,
+    this.height,
+    this.func,
+  }) : super();
 
-  void action(BuildContext context) {
+  void actionPush(BuildContext context) {
     Navigator.push( context,
         new MaterialPageRoute(builder: (context) => widget));
   }
@@ -238,8 +241,14 @@ class MyButton extends StatelessWidget {
     if(type == 'outline') {
       return new OutlineButton(
         child: new Container(width: width, height: height, alignment: Alignment.center,
-            child: new TextContainer(text, fontW: FontWeight.w700, color: Colors.blue,)),
-        onPressed: () => action(context),
+            child: new Text(text, style: Theme.of(context).textTheme.button,)),
+        onPressed: () {
+          if(widget != null) {
+            actionPush(context);
+          } else {
+            func();
+          }
+        },
         color: Colors.white,
         shape: borderShape,
         borderSide: new BorderSide(width: 4.0, color: Colors.blue.shade100),
@@ -248,8 +257,14 @@ class MyButton extends StatelessWidget {
     } else if(type == 'raised') {
       return new RaisedButton(
         child: new Container(width: width, height: height, alignment: Alignment.center,
-            child: new TextContainer(text, fontW: FontWeight.w700, color: Colors.white,)),
-        onPressed: () => action(context),
+            child: new Text(text, style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),)),
+        onPressed: () {
+          if(widget != null) {
+            actionPush(context);
+          } else {
+            func();
+          }
+        },
         shape: borderShape,
         elevation: 0.0,
         color: Colors.blue,
@@ -262,9 +277,9 @@ class MyButton extends StatelessWidget {
         child: new OutlineButton.icon(
           borderSide: new BorderSide(width: 4.0, color: Colors.blue),
           icon: const Icon(Icons.tag_faces, color: Colors.blue,),
-          label: new TextContainer(text, fontW: FontWeight.w700, color: Colors.blue,),
+          label: new Text(text, style: Theme.of(context).textTheme.button,),
           onPressed: () {
-
+            func();
           },
           color: Colors.white,
           shape: new RoundedRectangleBorder(
@@ -273,6 +288,7 @@ class MyButton extends StatelessWidget {
         ),
       );
     }
+    return Text('Weed: No button was called.');
 
 
   }

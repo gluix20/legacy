@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'registry.dart';
 import 'translations.dart';
 import 'city.dart';
 import 'weed.dart';
@@ -32,7 +30,7 @@ class _BeginScreenState extends State<BeginScreen> {
     return new Scaffold(
       key: _scaffoldKey,
       drawer: new Drawer(),
-      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: _scaffoldKey),
+      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: _scaffoldKey, context: context,),
       body: new Container(
         padding: new EdgeInsets.all(20.0),
         child: new ListView(

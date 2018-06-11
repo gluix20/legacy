@@ -1,4 +1,4 @@
-package com.example.legacy;
+package com.glx.treasure;
 
 import android.os.Bundle;
 

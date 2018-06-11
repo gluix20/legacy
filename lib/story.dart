@@ -4,10 +4,12 @@ import 'weed.dart';
 import 'dart:async';
 import 'translations.dart';
 import 'topics.dart';
+import 'application.dart';
 
 class StoryPage extends StatefulWidget {
-  final String hint;
-  StoryPage({Key key, this.hint}) : super(key: key);
+  final Question question;
+
+  StoryPage({Key key, this.question}) : super(key: key);
 
   @override
   _StoryPageState createState() => new _StoryPageState();
@@ -17,11 +19,17 @@ class _StoryPageState extends State<StoryPage> {
 
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   FocusNode n = new FocusNode();
+  TextEditingController controller = new TextEditingController();
+  String currentText;
+  String lastText;
+  var lastPos;
 
   @override
   initState() {
     super.initState();
     focusOnTextField();
+
+
   }
 
   focusOnTextField() async {
@@ -40,7 +48,7 @@ class _StoryPageState extends State<StoryPage> {
     scaffoldKey.currentState.showSnackBar(snackbar);
   }
 
-  Future sleep3() {
+  Future<String> sleep3() {
     return new Future.delayed(const Duration(milliseconds: 300), () => "1");
   }
 
@@ -48,6 +56,9 @@ class _StoryPageState extends State<StoryPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    //if (MediaQueryData.of(context). == TargetPlatform.iOS) {
+
+    //}
     return new Scaffold(
       key: scaffoldKey,
       appBar: new MyAppBar('WRITING', context: context,
@@ -67,15 +78,15 @@ class _StoryPageState extends State<StoryPage> {
           ),
         ],
         leading: new IconButton(icon: new Icon(Icons.arrow_back), color: Colors.blue,
-          onPressed: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-          focusSomewhereElse();
-          }
+            onPressed: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              focusSomewhereElse();
+            }
         ),
       ),
       body: new Container(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.05) +
-        EdgeInsets.only(top: size.height * 0.05),
+            EdgeInsets.only(top: size.height * 0.05),
         child: new SingleChildScrollView(
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,24 +100,46 @@ class _StoryPageState extends State<StoryPage> {
 
 
               new Container(
-                child: new TextField(
-                  focusNode: n,
-                  //autofocus: true,
-                  maxLines: 20,
-                  keyboardType: TextInputType.multiline,
-                  decoration: new InputDecoration(
-                    contentPadding: EdgeInsets.zero,
-                    border: InputBorder.none,
-                    hintText: widget.hint,
-                  ),
-                  style: Theme.of(context).textTheme.body1,
-                ),
+                child: getTextField(),
                 margin: EdgeInsets.only(bottom: size.height * 0.05),
+
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+
+  TextField getTextField() {
+
+    controller.addListener(listening);
+
+    return new TextField(
+      style: Theme.of(context).textTheme.body1,
+      focusNode: n,
+      //autofocus: true,
+      controller: controller,
+      /// maxLines has to be null if applies the 15572 issue solution.
+      maxLines: null,
+      keyboardType: TextInputType.multiline,
+      decoration: new InputDecoration(
+        contentPadding: EdgeInsets.zero,
+        border: new UnderlineInputBorder(), //InputBorder.none,
+        hintText: widget.question.text,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    controller.removeListener(listening);
+    controller.dispose();
+    super.dispose();
+  }
+
+  listening() {
   }
 }

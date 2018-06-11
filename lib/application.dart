@@ -43,25 +43,36 @@ class User {
   //LocaleChangeCallback onLocaleChanged;
   int id;
   String username;
-  String name;
+  String firstName;
   String lastName;
   String email;
   String token;
+  String country;
+  String state;
   String city;
+  String dateBirth;
   Locale locale;
+  String fullName;
 
   static final User _user = new User._internal();
 
-  factory User({int id, String name, String lastName}){
+  factory User({int id, String firstName, String lastName, String fullName, String email,
+  String country, String state, String city, String dateBirth}){
     _user.id = id == null? _user.id : id;
-    _user.name = name == null? _user.name : name;
+    _user.firstName = firstName == null? _user.firstName : firstName;
     _user.lastName = lastName == null? _user.lastName : lastName;
+    _user.fullName = fullName ?? _user.fullName;
+    _user.email = email ?? _user.email;
+    _user.country = country ?? _user.country;
+    _user.state = state ?? _user.state;
+    _user.city = city ?? _user.city;
+    _user.dateBirth = dateBirth ?? _user.dateBirth;
     return _user;
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
     _user.id = json['user'][0]['id'];
-    _user.name = json['user'][0]['name'];
+    _user.firstName = json['user'][0]['name'];
     _user.lastName = json['user'][0]['last name'];
     return _user;
   }

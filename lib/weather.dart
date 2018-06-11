@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               //print(snapshot);
               if (snapshot.hasData) {
-                return new Text(snapshot.data.name+' '+snapshot.data.lastName);
+                return new Text(snapshot.data.firstName+' '+snapshot.data.lastName);
               } else if (snapshot.hasError) {
                 return new Text("${snapshot.error}");
               }

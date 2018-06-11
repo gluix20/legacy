@@ -16,6 +16,11 @@ class Register2PageState extends State<Register2Page> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
+  TextEditingController dateBirthTEC = new TextEditingController();
+  TextEditingController countryTEC = new TextEditingController();
+  TextEditingController stateTEC = new TextEditingController();
+  TextEditingController cityTEC = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -53,17 +58,20 @@ class Register2PageState extends State<Register2Page> {
 
                     new Column(
                       children: <Widget>[
-                        new MyInput(label: 'Date of Birth', hint: '07/06/1987', menu: true),
-                        new MyInput(label: 'Country/Region', hint: 'United States', menu: true),
-                        new MyInput(label: 'State', hint: 'California', menu: true),
-                        new MyInput(label: 'City', hint: 'Roseville', menu: true),
+                        new MyInput(label: 'Date of Birth', hint: '07/06/1987', controller: dateBirthTEC,
+                            menu: true),
+                        new MyInput(label: 'Country/Region', hint: 'United States', controller: countryTEC,
+                            menu: true),
+                        new MyInput(label: 'State', hint: 'California', controller: stateTEC,
+                            menu: true),
+                        new MyInput(label: 'City', hint: 'Roseville', controller: cityTEC,
+                            menu: true),
                       ],
                     ),
 
                     new MyButton(text: 'CONTINUE', type: 'raised',
                       width: size.width,
                       widget: new TopicsPage(),),
-
                   ],),
               )
             ),

@@ -298,10 +298,10 @@ class MyDialog extends Dialog {
             children: <Widget>[
               new MyButton(text: 'SKIP', type: 'outline',
               width: size.width * 0.2,
-                  widget: new StoryPage(hint: question.text)),
+                  widget: new StoryPage(question: question)),
               new MyButton(text: 'WRITE', type: 'raised',
                   width: size.width * 0.2,
-                  widget: new StoryPage(hint: question.text)),
+                  widget: new StoryPage(question: question)),
             ],
           ),
         ),

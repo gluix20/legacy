@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'dart:async';
+
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 import 'login.dart';
 import 'splash.dart';
 import 'translations.dart';
 import 'application.dart';
-import 'intro.dart';
+import 'tutorial.dart';
 import 'register2.dart';
 import 'topics.dart';
 
@@ -26,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     /// Review this line:
-    user.name = 'Nate';
+    user.firstName = 'Nate';
 
     _localeOverrideDelegate = new SpecificLocalizationDelegate(null);
     applic.onLocaleChanged = onLocaleChange;
@@ -47,6 +50,7 @@ class _MyAppState extends State<MyApp> {
     /// This context has not translations, size and defined Theme.
     /// These are the validations:
     ///
+
     return new MaterialApp(
 
       theme: new ThemeData(

@@ -20,7 +20,7 @@ class WelcomePageState extends State<WelcomePage> {
     APPLIC.paragraph = '';
 
     APPLIC.appendP('Welcome, ');
-    APPLIC.appendP(user.name);
+    APPLIC.appendP(user.firstName);
     final String welcome_par = APPLIC.getP();
 
     return new Scaffold(

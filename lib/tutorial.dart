@@ -4,19 +4,16 @@ import 'register.dart';
 import 'bottom.dart';
 import 'weed.dart';
 
-class IntroPage extends StatelessWidget {
+class TutorialPage extends StatelessWidget {
   final PageController pageController = new PageController();
 
   @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
-    print('screenSize: ${MediaQuery
-        .of(context)
-        .size}');
-    print('pixelRatio: ${MediaQuery
-        .of(context)
-        .devicePixelRatio}');
+    //print('TutorialPage: screenSize ${MediaQuery.of(context).size}');
+    //print('TutorialPage: pixelRatio ${MediaQuery.of(context).devicePixelRatio}');
+
 
     const pages = [
       {
@@ -41,48 +38,54 @@ class IntroPage extends StatelessWidget {
       }
     ];
 
-    return new Container(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-      decoration: new BoxDecoration(
-        color: Colors.white,
-      ),
+    return new WillPopScope(
+      onWillPop: () async {
+        /// This widget WillPopScope prevents to back to SplashPage with back button
+        /// in Android, or with swipe back gesture in iOS.
+        return false;
+      },
+      child: new Container(
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+        decoration: new BoxDecoration(
+          color: Colors.white,
+        ),
 
-      child: new Stack(
-
-          children: [
-            PageView.builder(
-                controller: pageController,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return new Container(
-                      padding: EdgeInsets.only(top: size.height * 0.15),
-                      child: Column(
-                        children: [
-                          new Container(
-                            constraints: new BoxConstraints.expand(height: size.height * 0.25),
-                            child: new FlutterLogo(colors: Colors.blue),
-                          ),
-
-                          new Container(
-                            constraints: new BoxConstraints(minHeight: size.height * 0.35),
-                            child: new Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text(pages[index]['title'], textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.title,),
-                                Text(pages[index]['text'], textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.body1,),
-                              ],
+        child: new Stack(
+            children: [
+              PageView.builder(
+                  controller: pageController,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return new Container(
+                        padding: EdgeInsets.only(top: size.height * 0.15),
+                        child: Column(
+                          children: [
+                            new Container(
+                              constraints: new BoxConstraints.expand(height: size.height * 0.25),
+                              child: new FlutterLogo(colors: Colors.blue),
                             ),
-                          ),
-                        ],
-                      ));
-                }),
-            new CircleIndicator(
-              pageController: pageController,
-              pages: 4,
-            )
-          ]),
+
+                            new Container(
+                              constraints: new BoxConstraints(minHeight: size.height * 0.35),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text(pages[index]['title'], textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.title,),
+                                  Text(pages[index]['text'], textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.body1,),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ));
+                  }),
+              new CircleIndicator(
+                pageController: pageController,
+                pages: 4,
+              )
+            ]),
+      ),
     );
   }
 }

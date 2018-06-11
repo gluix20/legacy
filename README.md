@@ -1,4 +1,4 @@
-# legacy
+# treasure
 
 A new Flutter project.
 

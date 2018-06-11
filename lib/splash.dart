@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'weed.dart';
-import 'intro.dart';
+import 'tutorial.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
 
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => new IntroPage()),
+      new MaterialPageRoute(builder: (context) => new TutorialPage()),
     );
 
   }

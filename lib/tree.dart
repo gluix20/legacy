@@ -46,7 +46,7 @@ class _TreePageState extends State<TreePage> {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
     return new Scaffold(
-      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: _scaffoldKey),
+      appBar: new MyAppBar(T(context, k: 'main_title1'), scaffoldKey: _scaffoldKey, context: context,),
       body: new ListView(
         children: tiles,
       ),
