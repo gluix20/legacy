@@ -75,7 +75,7 @@ class MyAppBar extends AppBar {
 
 }
 
-class MyInput extends StatelessWidget {
+class MyInput extends StatefulWidget {
 
   final String label;
   final String hint;
@@ -87,19 +87,29 @@ class MyInput extends StatelessWidget {
   final FontWeight fontW;
   final Color color;
   final double height;
+  final double width;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final String type;
+  String value = 'Guatemala';
+  List<String> allValues;
 
   MyInput({Key key, this.label, this.hint, this.obscureText, this.menu,
     this.keyText, this.fontSize,
     this.align, this.fontW, this.color,
-    this.height, this.controller, this.focusNode}):
+    this.height, this.controller, this.focusNode,
+    this.value, this.allValues, this.type, this.width}):
         super(key: key);
 
   @override
+  _MyInputState createState() => _MyInputState();
+}
+
+class _MyInputState extends State<MyInput> {
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final double height = this.height ?? size.height * 0.065;
+    final double height = widget.height ?? size.height * 0.065;
 
     /*
     new TextFormField(
@@ -125,45 +135,119 @@ class MyInput extends StatelessWidget {
     ),
 
     */
+    if (widget.type == null) {
+      return new Container(
+        width: widget.width ?? size.width,
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-    return new Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-
-        new Container(
-          padding: EdgeInsets.only(bottom: size.height * 0.005),
-          child: new Text(label, style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12.0),),
-        ),
-
-        new Container(
-          margin: EdgeInsets.only(bottom: size.height * 0.015),
-          alignment: Alignment.center,
-          height: height,
-          decoration: new BoxDecoration(
-            border: new Border.all(
-              color: Colors.blue.shade200,
-              width: 1.0
+            new Container(
+              /// The label text.
+              padding: EdgeInsets.only(bottom: size.height * 0.005),
+              child: new Text(widget.label,
+                style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12.0),),
             ),
-            borderRadius: new BorderRadius.circular(0.0),
-          ),
-          child: new TextField(
-            maxLines: 1,
-            controller: controller ?? new TextEditingController(),
-            focusNode: focusNode ?? new FocusNode(),
-            obscureText: obscureText ?? false,
-            decoration: new InputDecoration(
-              hintText: hint,
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(left: size.width * 0.07, right: size.width * 0.03),
-              suffixIcon: menu == null ? null :
-              new Icon(Icons.keyboard_arrow_down, size: 28.0, color: Colors.blue,),
+
+            new Container(
+              /// The input box.
+              margin: EdgeInsets.only(bottom: size.height * 0.015),
+              alignment: Alignment.center,
+              height: height,
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                    color: Colors.blue.shade200,
+                    width: 1.0
+                ),
+                borderRadius: new BorderRadius.circular(0.0),
+              ),
+              child: new TextField(
+                maxLines: 1,
+                controller: widget.controller ?? new TextEditingController(),
+                focusNode: widget.focusNode ?? new FocusNode(),
+                obscureText: widget.obscureText ?? false,
+                decoration: new InputDecoration(
+                  hintText: widget.hint,
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.02),
+                  suffixIcon: widget.menu == null ? null :
+                  new Icon(Icons.keyboard_arrow_down, size: 28.0, color: Colors.blue,),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
-    );
+      );
+
+    } else if(widget.type == 'menu') {
+
+      return new Container(
+        width: widget.width ?? size.width,
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+
+            new Container(
+              padding: EdgeInsets.only(bottom: size.height * 0.005),
+              child: new Text(widget.label, style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12.0),),
+            ),
+
+
+            new Container(
+              margin: EdgeInsets.only(bottom: size.height * 0.015),
+              alignment: Alignment.center,
+              height: height,
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                    color: Colors.blue.shade200,
+                    width: 1.0
+                ),
+                borderRadius: new BorderRadius.circular(0.0),
+              ),
+              child: new InputDecorator(
+
+                decoration: new InputDecoration(
+
+                  hintText: widget.hint,
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: size.width * 0.07, right: size.width * 0.03),
+                  //suffixIcon: widget.menu == null ? null :
+                  //new Icon(Icons.keyboard_arrow_down, size: 28.0, color: Colors.blue,),
+                ),
+                isEmpty: widget.value == null,
+
+                child: new DropdownButtonHideUnderline(
+                  child: new DropdownButton<String>(
+                    isDense: true,
+                    value: widget.value,
+                    iconSize: 28.0,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        widget.value = newValue;
+                      });
+                    },
+
+                    items: widget.allValues.map((String value) {
+                      return new DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value,),
+                      );
+                    }).toList(),
+                  ),
+
+                ),
+
+              ),
+            ),
+          ],
+        ),
+      );
+
+    }
   }
 }
+
+
 
 class MyTitle extends StatelessWidget {
 
@@ -171,8 +255,9 @@ class MyTitle extends StatelessWidget {
   final String subtitle;
   final bool appbar;
   final Color color;
+  final String emoji;
 
-  MyTitle({Key key, this.title, this.subtitle, this.appbar, this.color}):
+  MyTitle({Key key, this.title, this.subtitle, this.appbar, this.color, this.emoji}):
         super(key: key);
 
   @override
@@ -196,11 +281,22 @@ class MyTitle extends StatelessWidget {
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          (title != null) ? new Text(title, style: Theme.of(context).textTheme.headline)
+          (title != null) ? new RichText(
+
+              text: new TextSpan(
+                children: <TextSpan>[
+                  new TextSpan(text: title, style: Theme.of(context).textTheme.headline),
+                  new TextSpan(text: ' '+emoji, style: Theme.of(context).textTheme.headline.copyWith(fontWeight: FontWeight.normal)),
+                ]
+              ),
+
+          )
               : new Text(''),
           (title != null) ? new Padding(padding: EdgeInsets.only(top: betweenPadding))
               : new Text(''),
-          new Text(subtitle, style: Theme.of(context).textTheme.subhead),
+          new Text(subtitle,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.subhead),
 
         ],
       ),
@@ -310,10 +406,8 @@ class MyCircleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return new GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (context) => widgetNav),
+          Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => widgetNav),
           );
         },
         child: new Container(

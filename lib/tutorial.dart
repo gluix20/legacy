@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'register.dart';
+import 'beforesubs.dart';
 import 'bottom.dart';
 import 'weed.dart';
+import 'translations.dart';
 
 class TutorialPage extends StatelessWidget {
   final PageController pageController = new PageController();
@@ -15,25 +16,20 @@ class TutorialPage extends StatelessWidget {
     //print('TutorialPage: pixelRatio ${MediaQuery.of(context).devicePixelRatio}');
 
 
-    const pages = [
+    final pages = [
       {
-        "title": "Lorem Ipsum One",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "title": T(context, k: 'intro_title1'),
+        "text": T(context, k: 'intro_subt1'),
         "color": Colors.cyan
       },
       {
-        "title": "Lorem Ipsum Two",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "title": T(context, k: 'intro_title2'),
+        "text": T(context, k: 'intro_subt2'),
         "color": Colors.lightBlueAccent
       },
       {
-        "title": "PLorem Ipsum Three",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-        "color": Colors.lightGreen
-      },
-      {
-        "title": "PLorem Ipsum Four",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "title": T(context, k: 'intro_title3'),
+        "text": T(context, k: 'intro_subt3'),
         "color": Colors.lightGreen
       }
     ];
@@ -54,7 +50,7 @@ class TutorialPage extends StatelessWidget {
             children: [
               PageView.builder(
                   controller: pageController,
-                  itemCount: 4,
+                  itemCount: pages.length,
                   itemBuilder: (context, index) {
                     return new Container(
                         padding: EdgeInsets.only(top: size.height * 0.15),
@@ -82,7 +78,7 @@ class TutorialPage extends StatelessWidget {
                   }),
               new CircleIndicator(
                 pageController: pageController,
-                pages: 4,
+                pages: pages.length,
               )
             ]),
       ),
@@ -130,7 +126,6 @@ class _CircleIndicatorState extends State<CircleIndicator> {
             new Container(
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                 children: <Widget>[
                   new MyButton(text: 'SKIP', type: 'outline',
                       width: size.width * 0.3,
@@ -138,7 +133,7 @@ class _CircleIndicatorState extends State<CircleIndicator> {
                   ),
                   new MyButton(text: 'NEXT', type: 'raised',
                     width: size.width * 0.3,
-                    widget: new RegisterPage(),),
+                    widget: new BeforeSubsPage(),),
 
                 ],
               ),

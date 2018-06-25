@@ -7,8 +7,9 @@ import 'dart:convert';
 
 import 'translations.dart';
 import 'weed.dart';
-import 'register2.dart';
+import 'regCountry.dart';
 import 'application.dart';
+import 'prefs.dart';
 
 
 class RegisterPage extends StatefulWidget {
@@ -69,21 +70,29 @@ class _RegisterPageState extends State<RegisterPage> {
 
   }
 
-  static final FacebookLogin facebookSignIn = new FacebookLogin();
+  //static final FacebookLogin facebookSignIn = new FacebookLogin();
   String _message = '';
+  //FacebookLoginResult result;
 
-  FacebookLoginResult result;
   Future<Null> _login() async {
     //facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
-
     if( result == null || result.status != FacebookLoginStatus.loggedIn ) {
       result = await facebookSignIn.logInWithReadPermissions(['email']);
     }
     print('RESULT: ${result.status}');
 
+
+    Prefs.setString('fbToken', result.accessToken.token).then((bool success) => result.accessToken.token);
+    Prefs.setString('fbUserId', result.accessToken.userId).then((bool success) => result.accessToken.userId);
+    Prefs.setString('fbExpires', result.accessToken.expires.toString()).then((bool success) => result.accessToken.expires.toString());
+    Prefs.setBool('fbLoginStatus', false).then((bool success) => false);
+
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final FacebookAccessToken accessToken = result.accessToken;
+        Prefs.setBool('fbLoginStatus', true).then((bool success) => true);
+
+
         var graphResponse = await http.get(
             'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${accessToken.token}');
         var profile = json.decode(graphResponse.body);
@@ -93,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
           firstName: profile['first_name'],
           lastName: profile['last_name'],
         );
-        print(user.fullName);
+
         fullNameTEC.text = user.fullName;
         emailTEC.text = user.email;
 
@@ -127,6 +136,14 @@ class _RegisterPageState extends State<RegisterPage> {
       _message = message;
     });
   }
+
+  //Future<String> _fbToken;
+  //Future<Null> _saveToken(FacebookLoginResult result) {
+  //  _fbToken = Prefs.setString('fbResult', result).then((bool success) {
+  //    return fbToken;
+  //  });
+  //}
+
 
   Future sleep() {
     return new Future.delayed(const Duration(milliseconds: 600), () => "1");
@@ -255,7 +272,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       new MyButton(text: 'LOGIN WITH FACEBOOK', type: 'outline.icon',
                         width: size.width,
                         func: () {
-                          print('RegisterPage: Hola mundo');
                           _login();
                         }),
 
@@ -290,7 +306,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                       new MyButton(text: 'CONTINUE', type: 'raised',
                         width: size.width,
-                        widget: new Register2Page(),
+                        widget: new RegCountryPage(),
                       ),
                   ],),
                 ),

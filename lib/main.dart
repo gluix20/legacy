@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'prefs.dart';
 import 'dart:async';
-
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-
 import 'login.dart';
 import 'splash.dart';
 import 'translations.dart';
 import 'application.dart';
 import 'tutorial.dart';
-import 'register2.dart';
+import 'regCountry.dart';
 import 'topics.dart';
 
 
 void main() => runApp(new MyApp());
-
 
 class MyApp extends StatefulWidget {
   @override
@@ -24,9 +21,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   SpecificLocalizationDelegate _localeOverrideDelegate;
 
+
+
   @override
   void initState(){
     super.initState();
+
+    Prefs.init();
 
     /// Review this line:
     user.firstName = 'Nate';
@@ -37,6 +38,12 @@ class _MyAppState extends State<MyApp> {
     /// With this code it's possible to change the language.
     /// Tested:
      applic.onLocaleChanged(new Locale('en',''));
+  }
+
+  @override
+  void dispose() {
+    Prefs.dispose();
+    super.dispose();
   }
 
   onLocaleChange(Locale locale){
@@ -59,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         /// This one manage the circle and progress bar color.
         accentColor: Colors.blue,
         primaryColor: Colors.blue,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Arial',
 
         textTheme: new TextTheme(
           body1: new TextStyle(color: Colors.blue,
@@ -74,7 +81,7 @@ class _MyAppState extends State<MyApp> {
               fontSize: 18.0, fontWeight: FontWeight.normal),
 
           display1: new TextStyle(color: Colors.blue,
-              fontSize: 24.0, fontWeight: FontWeight.normal),
+              fontSize: 24.0, fontWeight: FontWeight.normal, fontFamily: 'Times'),
           display2: new TextStyle(color: Colors.blue,
               fontSize: 36.0, fontWeight: FontWeight.w700),
           display3: new TextStyle(color: Colors.blue,

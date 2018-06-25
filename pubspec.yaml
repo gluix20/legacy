@@ -14,6 +14,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.0
+  shared_preferences: "^0.4.2"
+
+  prefs:
+      git:
+        url: git://github.com/AndriousSolutions/prefs.git
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +47,16 @@ flutter:
           - asset: fonts/Montserrat-Italic.ttf
             style: italic
           - asset: fonts/Montserrat-Bold.ttf
+            weight: 700
+      - family: Lora
+        fonts:
+          - asset: fonts/Lora-Regular.ttf
+          - asset: fonts/Lora-Bold.ttf
+            weight: 700
+      - family: Roboto
+        fonts:
+          - asset: fonts/Roboto-Regular.ttf
+          - asset: fonts/Roboto-Bold.ttf
             weight: 700
 
 

@@ -66,3 +66,26 @@ class SpecificLocalizationDelegate extends LocalizationsDelegate<Translations> {
 String T(BuildContext context, {String t, String k}){
     return t ?? Translations.of(context).text(k);
 }
+
+TextSpan textManager(List<TextPair> concat, {TextStyle style}) {
+  ///O un map para saber como manejar los styles y los idiomismos,
+  ///por ejemplo 60's en ingles y 60s en español.
+
+  List<TextSpan> children;
+  for(var tp in concat){
+    if(tp.type == 'translation') {
+      children.add(new TextSpan(text: tp.text));
+    } else if(tp.type == 'emoji') {
+      children.add(new TextSpan(text: tp.text));
+    } else if(tp.type == 'variable') {
+      children.add(new TextSpan(text: tp.text));
+    }
+  }
+  return new TextSpan(children: children);
+}
+
+class TextPair {
+  String text;
+  String type;
+  TextStyle ts;
+}

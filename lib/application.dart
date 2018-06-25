@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 typedef void LocaleChangeCallback(Locale locale);
+
+final FacebookLogin facebookSignIn = new FacebookLogin();
+FacebookLoginResult result;
 
 class APPLIC {
   // List of supported languages
