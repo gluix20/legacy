@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'translations.dart';
 import 'weed.dart';
 import 'beforereg.dart';
+import 'loginWeb.dart';
 
 
 class BeforeSubsPage extends StatefulWidget {
@@ -81,7 +82,7 @@ class _BeforeSubsPageState extends State<BeforeSubsPage> {
                 children: <Widget>[
                   new MyButton(text: 'START A FREE TRIAL', type: 'raised',
                     width: size.width,
-                    widget: new BeforeRegPage(),
+                    widget: new LoginWebPage(),
                   ),
 
                   new Container(
