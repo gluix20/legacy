@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'application.dart';
 
-
-
 class Weather extends StatelessWidget {
-
   final Map<String, dynamic> data;
   Weather(this.data);
   Widget build(BuildContext context) {
@@ -34,10 +31,8 @@ class WeatherPageState extends State<WeatherPage> {
 
   void _refresh() {
     setState(() {
-      _response = http.get(
-          'http://api.openweathermap.org/data/2.5/forecast'
-              '?q=San+Francisco&units=metric&APPID=14cc828bff4e71286219858975c3e89a'
-      );
+      _response = http.get('http://api.openweathermap.org/data/2.5/forecast'
+          '?q=San+Francisco&units=metric&APPID=14cc828bff4e71286219858975c3e89a');
     });
   }
 
@@ -53,25 +48,24 @@ class WeatherPageState extends State<WeatherPage> {
       body: new Center(
           child: new FutureBuilder(
               future: _response,
-              builder: (BuildContext context, AsyncSnapshot<http.Response> response) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<http.Response> response) {
                 if (!response.hasData)
                   return new Text('Loading...');
                 else if (response.data.statusCode != 200) {
                   return new Text('Could not connect to weather service.');
                 } else {
-                  Map<String, dynamic> json = JSON.decode(response.data.body);
-                  if (json['cod'] == 200)
-                    return new Weather(json);
+                  Map<String, dynamic> jsonMap =
+                      json.decode(response.data.body);
+                  if (jsonMap['cod'] == 200)
+                    return new Weather(jsonMap);
                   else
                     return new Text('Weather service error: $json.');
                 }
-              }
-          )
-      ),
+              })),
     );
   }
 }
-
 
 /*
 class User {
@@ -110,7 +104,8 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               //print(snapshot);
               if (snapshot.hasData) {
-                return new Text(snapshot.data.name+' '+snapshot.data.lastName);
+                return new Text(
+                    snapshot.data.name + ' ' + snapshot.data.lastName);
               } else if (snapshot.hasError) {
                 return new Text("${snapshot.error}");
               }
